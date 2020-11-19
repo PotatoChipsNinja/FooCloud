@@ -1,0 +1,22 @@
+{
+  "name": "foocloud",
+  "version": "1.0.0",
+  "description": "A highly scalable private cloud file system",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PotatoChipsNinja/FooCloud.git"
+  },
+  "author": "PCNinja",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/PotatoChipsNinja/FooCloud/issues"
+  },
+  "homepage": "https://github.com/PotatoChipsNinja/FooCloud#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
