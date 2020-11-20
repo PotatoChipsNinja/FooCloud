@@ -39,7 +39,7 @@ npm run start
 ### 鉴权机制
 - 服务端使用 JSON Web Token (JWT) 标准和 RSA with SHA-256 非对称加密算法对接收的 API 请求进行鉴权
 - 用户向服务端发送除 **登录** 和 **注册** 以外的 API 请求时，均需在请求头的 `Authorization` 属性中加入登录时由服务端颁发的 `token`，携带格式为 `Authorization: Bearer <token>`
-- 登录时颁发的 `token` 的过期时间为 **30 分钟**，用户每次调用 API 后会重置过期时间
+- `token` 的过期时间为 **30 分钟**
 - 当收到过期的或伪造的 `token` 时，服务端将返回鉴权失败的错误信息，用户需重新登录
 
 ### 错误情况返回
