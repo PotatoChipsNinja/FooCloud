@@ -1,1 +1,4 @@
 node_modules/
+db/
+private.key
+public.pem

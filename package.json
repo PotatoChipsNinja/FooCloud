@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/PotatoChipsNinja/FooCloud#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.3"
   }
 }
