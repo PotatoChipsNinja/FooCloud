@@ -25,11 +25,12 @@ router.use((req, res, next) => {
   } else {
     try {
       jwt.verify(req.get('Authorization').substr(7), cert)  // 鉴权
-      next()  // token 有效
     } catch {
       // token 过期或被伪造
       res.send({ error: 'Authentication Failure', code: 101 })
+      return
     }
+    next()  // token 有效
   }
 })
 
