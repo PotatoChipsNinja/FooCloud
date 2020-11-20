@@ -65,8 +65,11 @@ npm run start
 ### 注册
 #### 接口描述
 接口 URL: `/api/register`
+
 请求方法： `POST`
+
 编码方式： `application/x-www-form-urlencoded`
+
 返回格式： `application/json`
 
 #### 请求参数
@@ -83,8 +86,11 @@ npm run start
 ### 登录
 #### 接口描述
 接口 URL: `/api/login`
+
 请求方法： `POST`
+
 编码方式： `application/x-www-form-urlencoded`
+
 返回格式： `application/json`
 
 #### 请求参数
