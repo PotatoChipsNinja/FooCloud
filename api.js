@@ -28,7 +28,7 @@ router.use((req, res, next) => {
       next()  // token 有效
     } catch {
       // token 过期或被伪造
-      res.status(403).send({ error: 'Authentication Failure', code: 101 })
+      res.send({ error: 'Authentication Failure', code: 101 })
     }
   }
 })
@@ -96,7 +96,7 @@ router.get('/test', (req, res) => {
 })
 
 router.use((req, res) => {
-  res.status(404).send({ error: 'Wrong API URL', code: 102 })
+  res.send({ error: 'Wrong API URL', code: 102 })
 })
 
 module.exports = router
