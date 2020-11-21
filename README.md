@@ -36,4 +36,4 @@ npm start
 ```
 
 ## REST API
-请见 [wiki - API 文档](https://github.com/PotatoChipsNinja/FooCloud/wiki/API-%E6%96%87%E6%A1%A3)
+请见 [wiki - API 文档](https://github.com/PotatoChipsNinja/FooCloud/wiki/API-Docs)
