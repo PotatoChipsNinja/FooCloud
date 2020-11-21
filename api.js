@@ -27,7 +27,7 @@ router.use((req, res, next) => {
       jwt.verify(req.get('Authorization').substr(7), cert)  // 鉴权
     } catch {
       // token 过期或被伪造
-      res.send({ error: 'Authentication Failure', code: 101 })
+      res.status(401).send({ error: 'Authentication Failure', code: 101 })
       return
     }
     next()  // token 有效
@@ -40,7 +40,7 @@ router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
 
   if (!username || !password) {
     // 参数错误
-    res.send({ error: 'Parameter Error', code: 103 })
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
 
@@ -49,7 +49,7 @@ router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
 
   db.login(username, password, (err) => {
     if (err) {
-      res.send(err)
+      res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
       // 登陆成功，返回 token
       let token = jwt.sign({ username: username }, privateKey, { algorithm: 'RS256', expiresIn: '30m' })
@@ -64,19 +64,19 @@ router.post('/register', express.urlencoded({ extended: false }), (req, res) => 
 
   if (!username || !password) {
     // 参数错误
-    res.send({ error: 'Parameter Error', code: 103 })
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
 
   if (username.length < 5 || username.length > 20) {
     // 非法用户名
-    res.send({ error: 'Illegal Username', code: 301})
+    res.status(403).send({ error: 'Illegal Username', code: 301})
     return
   }
 
   if (password.length < 8 || password.length > 32) {
     // 非法密码
-    res.send({ error: 'Illegal Password', code: 302})
+    res.status(403).send({ error: 'Illegal Password', code: 302})
     return
   }
 
@@ -85,7 +85,7 @@ router.post('/register', express.urlencoded({ extended: false }), (req, res) => 
 
   db.register(username, password, (err) => {
     if (err) {
-      res.send(err)
+      res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
       res.send({ success: true })  // 注册成功
     }
@@ -97,7 +97,7 @@ router.get('/test', (req, res) => {
 })
 
 router.use((req, res) => {
-  res.send({ error: 'Wrong API URL', code: 102 })
+  res.status(404).send({ error: 'Wrong API URL', code: 102 })
 })
 
 module.exports = router

@@ -49,18 +49,18 @@ npm run start
 | error | String | 错误信息 |
 | code | Integer | 错误码 |
 
-其中，错误信息和错误码如下表：
-| 错误码 | 错误信息 | 适用范围 | 说明 |
-| :--: | :--: | :--: | :--: |
-| 101 | Authentication Failure | 除 `/login` 和 `/register` 外所有 | 鉴权失败，携带错误 token 或 token 过期 |
-| 102 | Wrong API URL | 全局 | 没有找到该 API |
-| 103 | Parameter Error | 全局 | 缺少必要参数 |
-| 104 | Internal Error | 全局 | 内部错误 |
-| 201 | Username Not Exist | `/login` | 不存在该用户 |
-| 202 | Wrong Password | `/login` | 密码错误 |
-| 301 | Illegal Username | `/register` | 非法用户名，用户名须在 5-20 个字符之间 |
-| 302 | Illegal Password | `/register` | 非法密码，密码须在 8-32 个字符之间 |
-| 303 | Occupied Username | `/register` | 用户名已被占用 |
+其中，错误信息、错误码以及响应的 HTTP 状态码如下表：
+| 错误码 | 错误信息 | 适用范围 | 说明 | HTTP 状态码 |
+| :--: | :--: | :--: | :--: | :--: |
+| 101 | Authentication Failure | 除 `/login` 和 `/register` 外所有 | 鉴权失败，携带错误 token 或 token 过期 | `401 Unauthorized` |
+| 102 | Wrong API URL | 全局 | 没有找到该 API | `404 Not Found` |
+| 103 | Parameter Error | 全局 | 缺少必要参数 | `400 Bad Request` |
+| 104 | Internal Error | 全局 | 内部错误 | `500 Internal Server Error` |
+| 201 | Username Not Exist | `/login` | 不存在该用户 | `403 Forbidden` |
+| 202 | Wrong Password | `/login` | 密码错误 | `403 Forbidden` |
+| 301 | Illegal Username | `/register` | 非法用户名，用户名须在 5-20 个字符之间 | `403 Forbidden` |
+| 302 | Illegal Password | `/register` | 非法密码，密码须在 8-32 个字符之间 | `403 Forbidden` |
+| 303 | Occupied Username | `/register` | 用户名已被占用 | `403 Forbidden` |
 
 ### 注册
 #### 接口描述
@@ -104,3 +104,23 @@ npm run start
 | :--: | :--: | :--: |
 | token | String | 用户 token，后续请求 API 时携带 |
 
+### 获取文件列表
+#### 接口描述
+接口 URL: `/api/login`
+
+请求方法： `GET`
+
+编码方式： `application/x-www-form-urlencoded`
+
+返回格式： `application/json`
+
+#### 请求参数
+| 参数名称 | 必选 | 类型 | 说明 |
+| :--: | :--: | :--: | :--: |
+| username | 是 | String | 用户名 |
+| password | 是 | String | 密码 |
+
+#### 正确情况返回
+| 参数名称 | 类型 | 说明 |
+| :--: | :--: | :--: |
+| token | String | 用户 token，后续请求 API 时携带 |

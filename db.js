@@ -36,7 +36,12 @@ function close() {
 function login(username, password, callback) {
   let user = gDb.collection('user')
   user.find({ username: username }).toArray((err, result) => {
-    if (err || result.length == 0) {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length == 0) {
       // 没有找到用户
       callback({ error: 'Username Not Exist', code: 201 })
       return
@@ -54,7 +59,12 @@ function login(username, password, callback) {
 function register(username, password, callback) {
   let user = gDb.collection('user')
   user.find({ username: username }).toArray((err, result) => {
-    if (err || result.length > 0) {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length > 0) {
       // 用户名重复
       callback({ error: 'Occupied Username', code: 303 })
       return
