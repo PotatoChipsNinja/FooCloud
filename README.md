@@ -42,14 +42,21 @@ npm run start
 - `token` 的过期时间为 **30 分钟**
 - 当收到过期的或伪造的 `token` 时，服务端将返回鉴权失败的错误信息，用户需重新登录
 
-### 错误情况返回
-当 API 请求错误或失败时，服务端将以 JSON 格式返回错误信息，包含参数如下：
-| 参数名称 | 类型 | 说明 |
-| :--: | :--: | :--: |
-| error | String | 错误信息 |
-| code | Integer | 错误码 |
+### 响应格式
+对于所有的请求，响应格式都是一个 JSON 对象
 
-其中，错误信息、错误码以及响应的 HTTP 状态码如下表：
+一个请求是否成功是由 HTTP 状态码标明的。一个 `200` 的状态码表示成功，而 `4XX` 或 `500` 表示请求失败。当一个请求失败时响应的主体仍然是一个 JSON 对象，包含 `code`（错误码） 和 `error`（错误信息） 这两个字段。例如，若尝试登录一个不存在的账号将会得到一个 `403` 响应，内容如下：
+``` json
+{
+  "error": "Username Not Exist",
+  "code": 201
+}
+```
+
+错误代码请见 [错误代码详解](#错误代码详解)
+
+### 错误代码详解
+错误信息、错误码以及响应的 HTTP 状态码如下表：
 | 错误码 | 错误信息 | 适用范围 | 说明 | HTTP 状态码 |
 | :--: | :--: | :--: | :--: | :--: |
 | 101 | Authentication Failure | 除 `/login` 和 `/register` 外所有 | 鉴权失败，携带错误 token 或 token 过期 | `401 Unauthorized` |
@@ -64,13 +71,11 @@ npm run start
 
 ### 注册
 #### 接口描述
-接口 URL: `/api/register`
+接口 URL: `/api/user/register`
 
 请求方法： `POST`
 
 编码方式： `application/x-www-form-urlencoded`
-
-返回格式： `application/json`
 
 #### 请求参数
 | 参数名称 | 必选 | 类型 | 说明 |
@@ -79,20 +84,18 @@ npm run start
 | password | 是 | String | 密码，8-32 个字符之间 |
 
 #### 正确情况返回
-| 参数名称 | 类型 | 说明 |
+| 属性 | 类型 | 说明 |
 | :--: | :--: | :--: |
 | success | Boolean | 值恒为 `true` |
 
 ### 登录
 #### 接口描述
-接口 URL: `/api/login`
+接口 URL: `/api/user/login`
 
 请求方法： `POST`
 
 编码方式： `application/x-www-form-urlencoded`
 
-返回格式： `application/json`
-
 #### 请求参数
 | 参数名称 | 必选 | 类型 | 说明 |
 | :--: | :--: | :--: | :--: |
@@ -100,27 +103,38 @@ npm run start
 | password | 是 | String | 密码 |
 
 #### 正确情况返回
-| 参数名称 | 类型 | 说明 |
+| 属性 | 类型 | 说明 |
 | :--: | :--: | :--: |
 | token | String | 用户 token，后续请求 API 时携带 |
 
 ### 获取文件列表
 #### 接口描述
-接口 URL: `/api/login`
+接口 URL: `/api/disk/getList`
 
 请求方法： `GET`
-
-编码方式： `application/x-www-form-urlencoded`
-
-返回格式： `application/json`
 
 #### 请求参数
 | 参数名称 | 必选 | 类型 | 说明 |
 | :--: | :--: | :--: | :--: |
-| username | 是 | String | 用户名 |
-| password | 是 | String | 密码 |
+| path | 是 | String | 请求目录路径，根目录为 `/` |
+| sort | 否 | Integer | 排序方式，`0` 为按名称升序，`1` 为按名称降序，`2` 为按时间升序，`3` 为按时间降序，默认值为 `0` |
 
 #### 正确情况返回
-| 参数名称 | 类型 | 说明 |
+| 属性 | 类型 | 说明 |
 | :--: | :--: | :--: |
-| token | String | 用户 token，后续请求 API 时携带 |
+| directory | [[DirInfo](#DirInfo)] | 目录列表 |
+| file | [[FileInfo](#FileInfo)] | 文件列表 |
+
+##### DirInfo
+| 属性 | 类型 | 说明 |
+| :--: | :--: | :--: |
+| name | String | 目录名 |
+| time | Integer | 修改时间，为 Unix 时间戳（自 1970 年 1 月 1 日以来的毫秒数） |
+
+##### FileInfo
+| 属性 | 类型 | 说明 |
+| :--: | :--: | :--: |
+| name | String | 文件名 |
+| size | Integer | 文件大小，单位为字节 |
+| time | Integer | 修改时间，为 Unix 时间戳（自 1970 年 1 月 1 日以来的毫秒数） |
+

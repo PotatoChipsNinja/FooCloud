@@ -34,7 +34,7 @@ router.use((req, res, next) => {
   }
 })
 
-router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/user/login', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.body.username
   let password = req.body.password
 
@@ -58,7 +58,7 @@ router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
   })
 })
 
-router.post('/register', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/user/register', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.body.username
   let password = req.body.password
 
