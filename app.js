@@ -14,13 +14,24 @@ db.connect((err) => {
     process.exit(1)
   }
 
-  // 数据库连接成功，启动 Web 服务
+  // 数据库连接成功，准备启动 Web 服务
   console.log('Successfully connected to database.')
+
+  // 允许跨域访问
+  app.all('*', (req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*')
+      next()
+  })
+
   app.use('/api', APIHandler)         // 处理 API 请求
   app.use(express.static('statics'))  // 处理静态资源请求
+
+  // 处理未找到 Handler 的请求
   app.use((req, res) => {
     res.status(404).send('404 Not Found')
   })
+
+  // 开始监听
   app.listen(port, () => {
     console.log(`FooCloud listening at http://localhost:${port}`)
   })
