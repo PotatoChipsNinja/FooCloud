@@ -26,14 +26,15 @@ router.use((req, res, next) => {
       if (err) {
         res.status(401).send({ error: 'Authentication Failure', code: 101 })  // token 无效
       } else {
+        req.username = username  // 把用户名加入请求的 username 属性
         next()
       }
     })
   }
 })
 
-router.use('/user', userRouter)
-router.use('/disk', diskRouter)
+router.use('/user', userRouter)  // 用户服务 API
+router.use('/disk', diskRouter)  // 文件服务 API
 
 router.use((req, res) => {
   res.status(404).send({ error: 'Wrong API URL', code: 102 })  // URL 匹配失败

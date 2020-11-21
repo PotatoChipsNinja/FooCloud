@@ -12,7 +12,7 @@ router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
   let password = req.body.password
 
   if (!username || !password) {
-    // 参数错误
+    // 缺少必要参数
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
@@ -41,7 +41,7 @@ router.post('/register', express.urlencoded({ extended: false }), (req, res) => 
   let password = req.body.password
 
   if (!username || !password) {
-    // 参数错误
+    // 缺少必要参数
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
