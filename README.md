@@ -32,7 +32,7 @@ mkdir db
 mongod --dbpath=./db
 
 # 启动 FooCloud 服务
-npm run start
+npm start
 ```
 
 ## API 文档

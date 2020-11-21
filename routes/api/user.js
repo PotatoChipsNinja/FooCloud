@@ -1,40 +1,13 @@
-// api.js: API Handler
+// routes/api/user.js: 用户操作 API 路由
 
 const express = require('express')
-const fs = require('fs')
-const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
-const db = require('./db')
+const auth = require('../../modules/auth')
+const db = require('../../modules/db/user')
 
 const router = express.Router()
-let privateKey, cert
 
-try {
-  privateKey = fs.readFileSync('private.key') // 读取私钥
-  cert = fs.readFileSync('public.pem')        // 读取公钥
-} catch {
-  // 读取密钥对失败
-  console.log('Failed to load key pair!')
-  process.exit(1)
-}
-
-router.use((req, res, next) => {
-  console.log(`API Request: ${req.url}`)
-  if (req.url == '/login' || req.url == '/register') {
-    next()  // 登录和注册不需要鉴权
-  } else {
-    try {
-      jwt.verify(req.get('Authorization').substr(7), cert)  // 鉴权
-    } catch {
-      // token 过期或被伪造
-      res.status(401).send({ error: 'Authentication Failure', code: 101 })
-      return
-    }
-    next()  // token 有效
-  }
-})
-
-router.post('/user/login', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/login', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.body.username
   let password = req.body.password
 
@@ -52,13 +25,18 @@ router.post('/user/login', express.urlencoded({ extended: false }), (req, res) =
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
       // 登陆成功，返回 token
-      let token = jwt.sign({ username: username }, privateKey, { algorithm: 'RS256', expiresIn: '30m' })
-      res.send({ token: token })
+      auth.sign(username, (err, token) => {
+        if (err) {
+            res.status(500).send({ error: 'Internal Error', code: 104 })
+        } else {
+            res.send({ token: token })
+        }
+      })
     }
   })
 })
 
-router.post('/user/register', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/register', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.body.username
   let password = req.body.password
 
@@ -90,10 +68,6 @@ router.post('/user/register', express.urlencoded({ extended: false }), (req, res
       res.send({ success: true })  // 注册成功
     }
   })
-})
-
-router.get('/test', (req, res) => {
-  res.send('test')
 })
 
 router.use((req, res) => {
