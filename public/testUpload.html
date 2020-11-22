@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>上传测试</title>
+</head>
+<body>
+  token: <input type="text" id="token"><br>
+  path: <input type="text" id="path"><br>
+  file: <input type="file" id="upload"><br>
+  <button id="submit">upload</button>
+
+  <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript">
+    $("#submit").click(() => {
+      var fromData = new FormData();
+      fromData.append('name', $('#upload')[0].files[0].name);
+      fromData.append("path", $('#path').val());
+      fromData.append("file", $('#upload')[0].files[0]);
+      $.post({
+        url: '/api/disk/upload',
+        headers: {
+          Authorization: 'Bearer ' + $('#token').val()
+        },
+        contentType: false,
+        processData: false,
+        data: fromData,
+        success: function(data) {
+          console.log('data: ', data);
+        }
+      });
+    })
+  </script>
+</body>
+</html>

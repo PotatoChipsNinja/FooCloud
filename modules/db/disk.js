@@ -42,7 +42,7 @@ function createDir(username, name, path, callback) {
     }
 
     let newDirPath = path == '/' ? `/${name}` : `${path}/${name}`
-    let newItem = { name: name, type: 'dir', path: path, UUID: '', size: 0, time: new Date().getTime() }
+    let newItem = { name: name, type: 'dir', path: path, realName: '', size: 0, time: new Date().getTime() }
     directory.updateOne({ username: username, directory: path }, { $push: { items: newItem } }, (err, result) => {
       if (err) {
         callback({ error: 'Internal Error', code: 104 })
@@ -60,8 +60,41 @@ function createDir(username, name, path, callback) {
   })
 }
 
+// 上传文件
+function upload(username, name, path, realName, size, callback) {
+  let directory = db.gDb.collection('directory')
+  directory.find({ username: username, directory: path }).toArray((err, result) => {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length == 0) {
+      // 不存在该目录
+      callback({ error: 'Directory Not Exist', code: 301 })
+      return
+    }
+
+    if (result[0].items.find(obj => (obj.name == name && obj.type == 'file'))) {
+      // 已经存在该文件
+      callback({ error: 'File Already Exist', code: 303 })
+      return
+    }
+
+    let newItem = { name: name, type: 'file', path: path, realName: realName, size: size, time: new Date().getTime() }
+    directory.updateOne({ username: username, directory: path }, { $push: { items: newItem } }, (err, result) => {
+      if (err) {
+        callback({ error: 'Internal Error', code: 104 })
+      } else {
+        callback()
+      }
+    })
+  })
+}
+
 // 对外部暴露模块
 module.exports = {
   directory,
-  createDir
+  createDir,
+  upload
 }

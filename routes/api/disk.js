@@ -1,9 +1,11 @@
 // routes/api/disk.js: 文件系统操作 API 路由
 
 const express = require('express')
+const multer = require('multer')
 const db = require('../../modules/db/disk')
 
 const router = express.Router()
+const upload = multer({ dest: 'uploads/' })
 
 // 获取目录信息
 router.get('/directory', (req, res) => {
@@ -71,7 +73,8 @@ router.get('/directory', (req, res) => {
     if (err) {
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
-      items.sort(sortFunc)  // 按用户指定排序方式排序
+      items.forEach(obj => delete(obj.realName))  // 删除 realName 属性
+      items.sort(sortFunc)                        // 按用户指定排序方式排序
       let fileNum = items.filter(obj => obj.type == 'file').length
       let dirNum = items.filter(obj => obj.type == 'dir').length
       res.send({ fileNum: fileNum, dirNum: dirNum, items: items })
@@ -91,6 +94,27 @@ router.post('/createDir', express.urlencoded({ extended: false }), (req, res) =>
   }
 
   db.createDir(req.username, name, path, (err) => {
+    if (err) {
+      res.status(err.code == 104 ? 500 : 403).send(err)
+    } else {
+      res.send({ success: true })
+    }
+  })
+})
+
+// 上传文件
+router.post('/upload', upload.single('file'), (req, res) => {
+  let name = req.body.name
+  let path = req.body.path
+  let file = req.file
+
+  if (!name || !path || !file) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  db.upload(req.username, name, path, file.filename, file.size, (err) => {
     if (err) {
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
