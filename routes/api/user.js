@@ -48,13 +48,13 @@ router.post('/register', express.urlencoded({ extended: false }), (req, res) => 
 
   if (username.length < 5 || username.length > 20) {
     // 非法用户名
-    res.status(403).send({ error: 'Illegal Username', code: 301})
+    res.status(403).send({ error: 'Illegal Username', code: 203})
     return
   }
 
   if (password.length < 8 || password.length > 32) {
     // 非法密码
-    res.status(403).send({ error: 'Illegal Password', code: 302})
+    res.status(403).send({ error: 'Illegal Password', code: 204})
     return
   }
 
