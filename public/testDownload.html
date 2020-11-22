@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>下载测试</title>
+</head>
+<body>
+  token: <input type="text" id="token"><br>
+  path: <input type="text" id="path"><br>
+  name: <input type="text" id="name"><br>
+  <button id="submit">download</button>
+
+  <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript">
+    $("#submit").click(() => {
+      $.get({
+        url: '/api/disk/download',
+        headers: {
+          Authorization: 'Bearer ' + $('#token').val()
+        },
+        data: {
+          name: $('#name').val(),
+          path: $('#path').val()
+        },
+        success: function(data) {
+          window.location.href = data.url;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

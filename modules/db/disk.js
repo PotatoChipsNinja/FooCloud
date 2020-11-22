@@ -1,6 +1,6 @@
 // modules/db/disk.js: 数据库文件操作
 
-var db = require('./base')
+const db = require('./base')
 
 // 获取目录信息
 function directory(username, path, callback) {
@@ -92,9 +92,36 @@ function upload(username, name, path, realName, size, callback) {
   })
 }
 
+// 下载文件（返回 realName）
+function download(username, name, path, callback) {
+  let directory = db.gDb.collection('directory')
+  directory.find({ username: username, directory: path }).toArray((err, result) => {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length == 0) {
+      // 不存在该目录
+      callback({ error: 'Directory Not Exist', code: 301 })
+      return
+    }
+
+    let fileObj = result[0].items.find(obj => (obj.name == name && obj.type == 'file'))
+
+    if (!fileObj) {
+      // 不存在该文件
+      callback({ error: 'File Not Exist', code: 304 })
+    } else {
+      callback(err, fileObj.realName)
+    }
+  })
+}
+
 // 对外部暴露模块
 module.exports = {
   directory,
   createDir,
-  upload
+  upload,
+  download
 }

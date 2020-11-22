@@ -1,6 +1,6 @@
 // modules/db/user.js: 数据库用户操作
 
-var db = require('./base')
+const db = require('./base')
 
 // 登录
 function login(username, password, callback) {

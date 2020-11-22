@@ -3,6 +3,7 @@
 const express = require('express')
 const multer = require('multer')
 const db = require('../../modules/db/disk')
+const auth = require('../../modules/auth')
 
 const router = express.Router()
 const upload = multer({ dest: 'uploads/' })
@@ -120,6 +121,33 @@ router.post('/upload', upload.single('file'), (req, res) => {
     } else {
       res.send({ success: true })
     }
+  })
+})
+
+// 下载文件
+router.get('/download', (req, res) => {
+  let name = req.query.name
+  let path = req.query.path
+
+  if (!name || !path) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  db.download(req.username, name, path, (err, realName) => {
+    if (err) {
+      res.status(err.code == 104 ? 500 : 403).send(err)
+      return
+    }
+
+    auth.signDL(name, realName, (err, token) => {
+      if (err) {
+        res.status(500).send({ error: 'Internal Error', code: 104 })
+      } else {
+        res.send({ url: `/dl/${token}` })
+      }
+    })
   })
 })
 

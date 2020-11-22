@@ -2,6 +2,7 @@
 
 const express = require('express')
 const APIRouter = require('./api/index')
+const DownloadRouter = require('./dl')
 
 const router = express.Router()
 
@@ -13,6 +14,9 @@ router.use('*', (req, res, next) => {
 
 // 处理 API 请求
 router.use('/api', APIRouter)
+
+// 处理下载请求
+router.use('/dl', DownloadRouter)
 
 // 处理静态资源请求
 router.use(express.static('public'))

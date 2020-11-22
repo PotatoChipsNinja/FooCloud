@@ -31,7 +31,27 @@ function verify(token, callback) {
   })
 }
 
+// 下载链接签发
+function signDL(name, realName, callback) {
+  jwt.sign({ name: name, realName: realName }, privateKey, { algorithm: 'RS256', expiresIn: '5m' }, (err, token) => {
+    callback(err, token)
+  })
+}
+
+// 下载链接验证
+function verifyDL(token, callback) {
+  jwt.verify(token, cert, (err, decoded) => {
+    if (err) {
+      callback(err)
+    } else {
+      callback(err, decoded.name, decoded.realName)
+    }
+  })
+}
+
 module.exports = {
   sign,
-  verify
+  verify,
+  signDL,
+  verifyDL
 }
