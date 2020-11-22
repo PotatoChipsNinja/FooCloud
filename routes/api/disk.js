@@ -5,6 +5,7 @@ const db = require('../../modules/db/disk')
 
 const router = express.Router()
 
+// 获取目录信息
 router.get('/directory', (req, res) => {
   let path = req.query.path
   let sort = req.query.sort
@@ -71,9 +72,29 @@ router.get('/directory', (req, res) => {
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
       items.sort(sortFunc)  // 按用户指定排序方式排序
-      let fileNum = items.filter(u => u.type == 'file').length
-      let dirNum = items.filter(u => u.type == 'dir').length
+      let fileNum = items.filter(obj => obj.type == 'file').length
+      let dirNum = items.filter(obj => obj.type == 'dir').length
       res.send({ fileNum: fileNum, dirNum: dirNum, items: items })
+    }
+  })
+})
+
+// 创建目录
+router.post('/createDir', express.urlencoded({ extended: false }), (req, res) => {
+  let name = req.body.name
+  let path = req.body.path
+
+  if (!name || !path) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  db.createDir(req.username, name, path, (err) => {
+    if (err) {
+      res.status(err.code == 104 ? 500 : 403).send(err)
+    } else {
+      res.send({ success: true })
     }
   })
 })
