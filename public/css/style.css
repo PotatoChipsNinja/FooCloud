@@ -1,0 +1,75 @@
+.brand-logo {
+  padding: 0 1rem !important;
+}
+
+nav {
+  position: fixed;
+  height: 64px;
+  opacity: 1;
+}
+
+#side {
+  position: fixed;
+  top: 64px;
+  height: 100%;
+  width: 15rem;
+  background-color: #fafafa;
+}
+
+#content {
+  position: absolute;
+  top: 64px;
+  left: 15rem;
+  z-index: -1;
+}
+
+.side-title {
+  padding: 1rem 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: lighter;
+}
+
+#side hr {
+  height: 1px;
+  border: none;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.side-item {
+  padding-left: 2rem;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.8);
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all 0.1s linear;
+}
+
+.side-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.1s linear;
+}
+
+.side-item i {
+  margin-right: 1rem;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.6rem;
+}
+
+.side-item.active {
+  margin-right: 0.1rem;
+  border-radius: 0 1.5rem 1.5rem 0;
+  background-color: #bbdefb;
+}
+
+#copyright {
+  position: absolute;
+  bottom: 5rem;
+  width: 15rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#copyright a {
+  color: rgba(0, 0, 0, 0.5);
+}

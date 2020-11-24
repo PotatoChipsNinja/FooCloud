@@ -1,9 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>TEST</title>
-</head>
-<body>
-  <h1>Hello</h1>
-</body>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="css/materialicons.css">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper blue darken-3">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="#" onclick="func();"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <a href="" class="brand-logo"><i class="material-icons">cloud</i>FooCloud</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+          <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+          <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+          <li><a href="#"><i class="material-icons">more_vert</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="z-depth-2" id="side">
+      <div class="side-title">文件服务</div>
+      <div class="side-item valign-wrapper">
+        <i class="material-icons">folder_shared</i>
+        我的文件
+      </div>
+      <div class="side-item valign-wrapper">
+        <i class="material-icons">share</i>
+        我的分享
+      </div>
+      <hr/>
+      <div class="side-title">扩展应用</div>
+      <div class="side-item valign-wrapper active">
+        <i class="material-icons">message</i>
+        备忘录
+      </div>
+      <div class="side-item valign-wrapper">
+        <i class="material-icons">date_range</i>
+        课程表
+      </div>
+      <div class="side-item valign-wrapper">
+        <i class="material-icons">format_list_bulleted</i>
+        待办事项
+      </div>
+
+      <div id="copyright">
+        &copy; 2020 <a href="https://github.com/PotatoChipsNinja/FooCloud" target="_blank">FooCloud</a>
+        <br/>
+        All Rights Reserved.
+      </div>
+    </div>
+
+    <div id="content">
+      content
+    </div>
+
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
 </html>
