@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>我的文件 - FooCloud</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/css/materialicons.css">
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper blue darken-3">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="#" onclick="sidebar();"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <a href="" class="brand-logo"><i class="material-icons">cloud</i>FooCloud</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#"><i class="material-icons">search</i></a></li>
+          <li><a href="#"><i class="material-icons">brightness_4</i></a></li>
+          <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="z-depth-2" id="side">
+      <div class="side-title">文件服务</div>
+      <a href="/">
+        <div class="side-item valign-wrapper active">
+          <i class="material-icons">folder_shared</i>
+          我的文件
+        </div>
+      </a>
+      <a href="/share">
+        <div class="side-item valign-wrapper">
+          <i class="material-icons">share</i>
+          我的分享
+        </div>
+      </a>
+      <hr/>
+      <div class="side-title">扩展应用</div>
+      <a href="/">
+        <div class="side-item valign-wrapper">
+          <i class="material-icons">message</i>
+          备忘录
+        </div>
+      </a>
+      <a href="/">
+        <div class="side-item valign-wrapper">
+          <i class="material-icons">date_range</i>
+          课程表
+        </div>
+      </a>
+      <a href="/">
+        <div class="side-item valign-wrapper">
+          <i class="material-icons">format_list_bulleted</i>
+          待办事项
+        </div>
+      </a>
+
+      <div id="copyright">
+        &copy; 2020 <a href="https://github.com/PotatoChipsNinja/FooCloud" target="_blank">FooCloud</a>
+        <br/>
+        All Rights Reserved.
+      </div>
+    </div>
+
+    <div class="center-align" id="content">
+      <table id="list">
+        <thead>
+          <tr>
+            <th style="width: 2rem;"></th>
+            <th>名称</th>
+            <th>大小</th>
+            <th>日期</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td>Alvin</td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Alan</td>
+            <td>Jellybean</td>
+            <td>$3.76</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>

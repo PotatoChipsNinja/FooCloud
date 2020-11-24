@@ -3,6 +3,7 @@
 const express = require('express')
 const APIRouter = require('./api/index')
 const DownloadRouter = require('./dl')
+const StaticsRouter = require('./statics')
 
 const router = express.Router()
 
@@ -19,7 +20,7 @@ router.use('/api', APIRouter)
 router.use('/dl', DownloadRouter)
 
 // 处理静态资源请求
-router.use(express.static('public'))
+router.use('/', StaticsRouter)
 
 // 处理未找到 Handler 的请求
 router.use((req, res) => {

@@ -13,14 +13,18 @@ nav {
   top: 64px;
   height: 100%;
   width: 15rem;
-  background-color: #fafafa;
+  background-color: rgba(0, 0, 0, 0.02);
+  transition: background-color 0.1s linear;
 }
 
 #content {
   position: absolute;
+  width: calc(100% - 15rem);
+  height: calc(100% - 64px);
   top: 64px;
   left: 15rem;
   z-index: -1;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .side-title {
@@ -42,12 +46,12 @@ nav {
   color: rgba(0, 0, 0, 0.8);
   height: 3rem;
   background-color: rgba(0, 0, 0, 0);
-  transition: all 0.1s linear;
+  transition: background-color 0.1s linear;
 }
 
 .side-item:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  transition: all 0.1s linear;
+  transition: background-color 0.1s linear;
 }
 
 .side-item i {
@@ -72,4 +76,8 @@ nav {
 
 #copyright a {
   color: rgba(0, 0, 0, 0.5);
+}
+
+#list {
+  padding-left: 30rem;
 }
