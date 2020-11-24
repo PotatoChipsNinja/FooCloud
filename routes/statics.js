@@ -8,6 +8,12 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/disk.html'))
 })
+router.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/login.html'))
+})
+router.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/register.html'))
+})
 router.get('/s/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/disk.html'))
 })

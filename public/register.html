@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>注册 - FooCloud</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/css/materialicons.css">
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper blue darken-3">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="#" onclick="sidebar();"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <a href="" class="brand-logo"><i class="material-icons">cloud</i>FooCloud</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#"><i class="material-icons">search</i></a></li>
+          <li><a href="#"><i class="material-icons">brightness_4</i></a></li>
+          <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="z-depth-2" id="side">
+      <div class="side-title">账户</div>
+      <a href="/login">
+        <div class="side-item valign-wrapper">
+          <i class="material-icons">login</i>
+          登录
+        </div>
+      </a>
+      <a href="/register">
+        <div class="side-item valign-wrapper active">
+          <i class="material-icons">person_add</i>
+          注册
+        </div>
+      </a>
+
+      <div id="copyright">
+        &copy; 2020 <a href="https://github.com/PotatoChipsNinja/FooCloud" target="_blank">FooCloud</a>
+        <br/>
+        All Rights Reserved.
+      </div>
+    </div>
+
+    <div class="valign-wrapper" id="content">
+      <div class="center-align" style="width: 100%;">
+        <div class="card" style="margin: 0 auto; width: 35%;">
+          <div class="card-content">
+            <span class="card-title" style="margin: 1rem 0 2rem 0;">注册 FooCloud</span>
+
+            <div class="input-field">
+              <i class="material-icons prefix">person</i>
+              <input id="username" type="text">
+              <label for="username">用户名</label>
+            </div>
+
+            <div class="input-field">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="password" type="password">
+              <label for="password">密码</label>
+            </div>
+
+            <div class="input-field">
+              <i class="material-icons prefix">repeat</i>
+              <input id="repeat" type="password">
+              <label for="repeat">重复密码</label>
+            </div>
+
+            <a class="waves-effect waves-light btn blue darken-3" style="width: 90%; margin: 1rem 0;">注册</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>
