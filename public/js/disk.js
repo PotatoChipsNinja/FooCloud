@@ -190,7 +190,7 @@ $('#file').change((e) => {
         return myXhr;
       },
       error: (res) => {
-        if (res.responseJSON.code) {
+        if (res.responseJSON.hasOwnProperty('code')) {
           let code = res.responseJSON.code;
           if (code == 101) {
             window.location.href = '/login';
