@@ -1,0 +1,22 @@
+#path {
+  background-color: rgba(0, 0, 0, 0.02);
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+  padding: 0 1rem;
+}
+
+#sort {
+  width: 8rem !important;
+}
+
+.path-item {
+  text-transform: unset !important;
+  padding: 0 0.6rem;
+  line-height: 2.3rem;
+}
+
+.path-arrow {
+  cursor: default;
+  color: rgba(0, 0, 0, 0.6);
+}

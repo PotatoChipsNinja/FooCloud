@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="/css/materialicons.css">
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/disk.css">
   </head>
 
   <body>
@@ -67,7 +68,21 @@
       </div>
     </div>
 
-    <div class="center-align" id="content">
+    <div id="content">
+
+      <div id="path" class="valign-wrapper z-depth-1">
+        <div id="path-list" class="valign-wrapper"></div>
+        <a href="#" class="valign-wrapper center-align dropdown-trigger" data-target='sort'>
+          <i class="material-icons" style="color: rgba(0, 0, 0, 0.6);">text_rotate_vertical</i>
+        </a>
+        <ul id='sort' class='dropdown-content'>
+          <li><a href="#" onclick="sort(0);">按名称升序</a></li>
+          <li><a href="#" onclick="sort(1);">按名称降序</a></li>
+          <li><a href="#" onclick="sort(2);">按日期升序</a></li>
+          <li><a href="#" onclick="sort(3);">按日期降序</a></li>
+        </ul>
+      </div>
+
       <table id="list">
         <thead>
           <tr>
