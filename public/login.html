@@ -55,24 +55,34 @@
 
             <div class="input-field">
               <i class="material-icons prefix">person</i>
-              <input id="username" type="text">
+              <input id="username" type="text" onfocus="clearErr(this);">
               <label for="username">用户名</label>
+              <span class="helper-text" id="username-helper" data-error=""></span>
             </div>
 
             <div class="input-field">
               <i class="material-icons prefix">vpn_key</i>
-              <input id="password" type="password">
+              <input id="password" type="password" onfocus="clearErr(this);">
               <label for="password">密码</label>
+              <span class="helper-text" id="password-helper" data-error=""></span>
             </div>
 
-            <a class="waves-effect waves-light btn blue darken-3" style="width: 90%; margin: 1rem 0;">登录</a>
+            <a class="waves-effect waves-light btn blue darken-3" style="width: 90%; margin: 1rem 0;" onclick="login();">登录</a>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px 8px 24px;">
+        <p style="font-size: 120%;">登录成功</p>
+        <p>正在为您跳转至 FooCloud ...</p>
       </div>
     </div>
 
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
   </body>
 </html>
