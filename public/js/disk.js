@@ -170,7 +170,6 @@ $('#file').change((e) => {
       processData: false,
       data: fromData,
       success: (res) => {
-        console.log('data: ', res);
         obj.children('.info').children('.status').text('已完成');
         obj.children('.info').children('.percent').text('');
         obj.children('a').hide();
@@ -182,7 +181,6 @@ $('#file').change((e) => {
           // 绑定progress事件的回调函数
           myXhr.upload.addEventListener('progress', (event) => {
             let loaded = Math.floor(100 * (event.loaded / event.total));  // 已经上传的百分比
-            console.log(filename, loaded);
             obj.children('.info').children('.percent').text(loaded + '%');
             setProgressBar(obj, loaded);
           }, false);
@@ -205,8 +203,7 @@ $('#file').change((e) => {
     });
 
     uploadList.push({ eleObj: obj, ajaxObj: ajaxObj });
-    //a.abort();
-
+    $('#file').val('');
     M.Modal.getInstance($('#upload-modal')).open();
   }
 });
