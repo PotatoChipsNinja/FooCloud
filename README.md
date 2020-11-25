@@ -25,7 +25,7 @@ npm install
 
 # 创建密钥对（用于 JWT 鉴权）
 openssl genrsa -out private.key 1024
-openssl rsa -in private.key -out public.pem
+openssl rsa -in private.key -pubout -out public.pem
 
 # 启动 MongoDB 服务
 mkdir db
