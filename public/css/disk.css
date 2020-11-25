@@ -75,3 +75,7 @@ table {
   background-color: rgba(0, 100, 255, 0.2);
   transition: background-color 0.1s linear;
 }
+
+.collection-item {
+  min-height: unset !important;
+}

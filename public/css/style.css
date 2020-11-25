@@ -19,7 +19,7 @@ nav {
 #content {
   position: absolute;
   width: calc(100% - 15rem);
-  height: calc(100% - 64px);
+  min-height: calc(100% - 64px);
   top: 64px;
   left: 15rem;
   z-index: -1;

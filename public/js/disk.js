@@ -2,7 +2,8 @@ $(document).ready(() => {
   M.Dropdown.init($('.dropdown-trigger'), {});
   M.FloatingActionButton.init($('.fixed-action-btn'), {});
   M.Tooltip.init($('.tooltipped'), {});
-  M.Modal.init($('.modal'), { endingTop: '40%' });
+  M.Modal.init($('#create-dir-modal'), { endingTop: '30%' });
+  M.Modal.init($('#upload-modal'), { endingTop: '20%' });
 });
 
 function setPath(p) {
@@ -106,7 +107,7 @@ function clearErr(obj) {
 function callModal() {
   $('#dir-name').val('');
   $('#dir-name-label').removeClass('active');
-  M.Modal.getInstance($('.modal')).open();
+  M.Modal.getInstance($('#create-dir-modal')).open();
 }
 
 function createDir() {
@@ -123,7 +124,7 @@ function createDir() {
     headers: { Authorization: 'Bearer ' + token },
     data: { name: dirName, path: path },
     success: (res) => {
-      M.Modal.getInstance($('.modal')).close();
+      M.Modal.getInstance($('#create-dir-modal')).close();
       loadList();
     },
     error: (res) => {
@@ -138,10 +139,95 @@ function createDir() {
   });
 }
 
+$('#file').change((e) => {
+  if ($('#file')[0].files.length) {
+    // 上传文件
+    let fromData = new FormData();
+    let filename = $('#file')[0].files[0].name;
+    fromData.append('name', filename);
+    fromData.append("path", path);
+    fromData.append("file", $('#file')[0].files[0]);
+    
+    $('.collection').append(`
+      <li class="collection-item avatar">
+        <i class="material-icons circle green">insert_drive_file</i>
+        <span class="title">${filename}</span>
+        <p class="info"><span class="status">上传中：</span><span class="percent">0%</span></p>
+        <a href="#" class="secondary-content tooltipped" data-position="bottom" data-tooltip="取消任务" onclick="cancel(${uploadList.length});">
+          <i class="material-icons">cancel</i>
+        </a>
+      </li>
+    `);
+
+    let obj = $('.collection').children().last();
+    
+    let ajaxObj = $.post({
+      url: '/api/disk/upload',
+      headers: {
+        Authorization: 'Bearer ' + token
+      },
+      contentType: false,
+      processData: false,
+      data: fromData,
+      success: (res) => {
+        console.log('data: ', res);
+        obj.children('.info').children('.status').text('已完成');
+        obj.children('.info').children('.percent').text('');
+        obj.children('a').hide();
+        loadList();
+      },
+      xhr: () => {
+        myXhr = $.ajaxSettings.xhr();
+        if (myXhr.upload) {
+          // 绑定progress事件的回调函数
+          myXhr.upload.addEventListener('progress', (event) => {
+            let loaded = Math.floor(100 * (event.loaded / event.total));  // 已经上传的百分比
+            console.log(filename, loaded);
+            obj.children('.info').children('.percent').text(loaded + '%');
+            setProgressBar(obj, loaded);
+          }, false);
+        }
+        return myXhr;
+      },
+      error: (res) => {
+        if (res.responseJSON.code) {
+          let code = res.responseJSON.code;
+          if (code == 101) {
+            window.location.href = '/login';
+          } else if (code == 303) {
+            obj.children('.info').children('.status').text('错误：文件已经存在');
+            obj.children('.info').children('.percent').text('');
+            obj.children('a').hide();
+            obj.css('background-image', 'unset');
+          }
+        }
+      }
+    });
+
+    uploadList.push({ eleObj: obj, ajaxObj: ajaxObj });
+    //a.abort();
+
+    M.Modal.getInstance($('#upload-modal')).open();
+  }
+});
+
+function cancel(index) {
+  uploadList[index].eleObj.children('.info').children('.status').text('已取消');
+  uploadList[index].eleObj.children('.info').children('.percent').text('');
+  uploadList[index].eleObj.children('a').hide();
+  uploadList[index].eleObj.css('background-image', 'unset');
+  uploadList[index].ajaxObj.abort();
+}
+
+function setProgressBar(obj, percent) {
+  obj.css('background-image', `linear-gradient(to right, rgba(0, 100, 255, 0.2) ${percent}%, rgba(0, 0, 0, 0) ${percent}%)`);
+}
+
 var token = localStorage.getItem('token');
 var path = '/';
 var sort = 0;
 var selected;
+var uploadList = [];
 if (!token) {
   window.location.href = '/login';
 }

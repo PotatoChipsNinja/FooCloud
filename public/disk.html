@@ -104,12 +104,13 @@
         <i class="large material-icons">add</i>
       </a>
       <ul>
-        <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="上传文件" onclick="upload();"><i class="material-icons">cloud_upload</i></a></li>
+        <li><a class="btn-floating red tooltipped" data-position="left" data-tooltip="传输管理" onclick="M.Modal.getInstance($('#upload-modal')).open();"><i class="material-icons">speed</i></a></li>
+        <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="上传文件" onclick="$('#file').click();"><i class="material-icons">cloud_upload</i></a></li>
         <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="新建目录" onclick="callModal();"><i class="material-icons">create_new_folder</i></a></li>
       </ul>
     </div>
 
-    <div class="modal" style="width: 25rem;">
+    <div class="modal" id="create-dir-modal" style="width: 25rem;">
       <div class="modal-content" style="padding: 0 24px;">
         <p style="font-size: 120%;">创建目录</p>
         <div class="input-field">
@@ -123,6 +124,17 @@
         <a href="#" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createDir();">创建</a>
       </div>
     </div>
+
+    <div class="modal" id="upload-modal" style="max-height: 60%;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <!--<h4>传输管理</h4>-->
+        <p style="font-size: 120%;">传输管理</p>
+        <ul class="collection">
+        </ul>
+      </div>
+    </div>
+
+    <input type="file" style="display: none;" id="file">
 
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
