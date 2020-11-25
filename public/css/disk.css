@@ -1,5 +1,5 @@
 #path {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: rgba(255, 255, 255, 0.03);
   display: flex;
   justify-content: space-between;
   height: 3rem;
@@ -19,4 +19,59 @@
 .path-arrow {
   cursor: default;
   color: rgba(0, 0, 0, 0.6);
+}
+
+#content {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+#num-count {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+#sort-button {
+  display: inline-block;
+  margin: 0.5rem 0 0 1rem;
+}
+
+#sort-button i {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+table {
+  cursor: default;
+}
+
+.item {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.1s linear;
+}
+
+.item i {
+  position: relative;
+  top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.item td {
+  line-height: 2.5rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.4rem;
+}
+
+.item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: background-color 0.1s linear;
+}
+
+.item:active {
+  background-color: rgba(0, 100, 255, 0.2);
+  transition: background-color 0.1s linear;
+}
+
+.item.active {
+  background-color: rgba(0, 100, 255, 0.2);
+  transition: background-color 0.1s linear;
 }

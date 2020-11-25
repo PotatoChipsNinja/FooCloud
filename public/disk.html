@@ -73,16 +73,16 @@
       <div id="path" class="valign-wrapper z-depth-1">
         <div id="path-list" class="valign-wrapper"></div>
         <div class="valign-wrapper">
-          <span style="display: inline-block;">5 个文件，3 个目录</span>
-          <a href="#" class="valign-wrapper center-align dropdown-trigger" data-target='sort' style="display: inline-block;">
-            <i class="material-icons" style="color: rgba(0, 0, 0, 0.6);">text_rotate_vertical</i>
+          <span id="num-count"><span id="file-num"></span> 个文件，<span id="dir-num"></span> 个目录</span>
+          <a href="#" id="sort-button" class="valign-wrapper center-align dropdown-trigger" data-target='sort'>
+            <i class="material-icons">text_rotate_vertical</i>
           </a>
         </div>
         <ul id='sort' class='dropdown-content'>
-          <li><a href="#" onclick="sort(0);">按名称升序</a></li>
-          <li><a href="#" onclick="sort(1);">按名称降序</a></li>
-          <li><a href="#" onclick="sort(2);">按日期升序</a></li>
-          <li><a href="#" onclick="sort(3);">按日期降序</a></li>
+          <li><a href="#" onclick="sortList(0);">按名称升序</a></li>
+          <li><a href="#" onclick="sortList(1);">按名称降序</a></li>
+          <li><a href="#" onclick="sortList(2);">按日期升序</a></li>
+          <li><a href="#" onclick="sortList(3);">按日期降序</a></li>
         </ul>
       </div>
 
@@ -95,27 +95,33 @@
             <th>日期</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-          </tr>
-        </tbody>
+        <tbody id="items"></tbody>
       </table>
+    </div>
+
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating green tooltipped" data-position="left" data-tooltip="上传文件" onclick="upload();"><i class="material-icons">cloud_upload</i></a></li>
+        <li><a class="btn-floating blue tooltipped" data-position="left" data-tooltip="新建目录" onclick="callModal();"><i class="material-icons">create_new_folder</i></a></li>
+      </ul>
+    </div>
+
+    <div class="modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%;">创建目录</p>
+        <div class="input-field">
+          <input id="dir-name" type="text" onfocus="clearErr(this);">
+          <label for="dir-name" id="dir-name-label">目录名</label>
+          <span class="helper-text" id="dir-name-helper" data-error=""></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
+        <a href="#" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createDir();">创建</a>
+      </div>
     </div>
 
     <script type="text/javascript" src="/js/materialize.min.js"></script>
