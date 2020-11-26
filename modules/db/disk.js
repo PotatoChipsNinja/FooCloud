@@ -118,7 +118,7 @@ function download(username, name, path, callback) {
   })
 }
 
-// 删除文件，返回需要删除的真实文件
+// 删除文件，返回需要删除的真实文件列表
 function removeFile(username, name, path, callback) {
   let directory = db.gDb.collection('directory')
   directory.find({ username: username, directory: path }).toArray((err, result) => {
@@ -145,7 +145,7 @@ function removeFile(username, name, path, callback) {
       if (err) {
         callback({ error: 'Internal Error', code: 104 })
       } else {
-        callback(err, fileObj.realName)
+        callback(err, [fileObj.realName])
       }
     })
   })
@@ -177,24 +177,7 @@ function removeDir(username, name, path, callback) {
         return
       }
 
-      if (result[0].items.length == 0) {
-        // 为空目录，直接删除该目录
-        directory.deleteOne(result[0], (err, result) => {
-          if (err) {
-            callback({ error: 'Internal Error', code: 104 })
-            return
-          }
-
-          // 从父级目录的 items 中删除
-          directory.updateOne({ username: username, directory: path }, { $pull: { items: dirObj } }, (err, result) => {
-            if (err) {
-              callback({ error: 'Internal Error', code: 104 })
-            } else {
-              callback(err, fileList)
-            }
-          })
-        })
-      } else {
+      if (result[0].items.length > 0) {
         // 不为空目录
         let works = result[0].items.length
         for (let i = 0; i < works; i++) {
@@ -205,15 +188,11 @@ function removeDir(username, name, path, callback) {
               return
             }
 
-            if (result[0].items[i].type == 'dir') {
-              fileList = fileList.concat(realName)
-            } else {
-              fileList.push(realName)
-            }
+            fileList = fileList.concat(realName)
             works--;
             if (works == 0) {
               // 删除父级目录
-              directory.updateOne({ username: username, directory: path }, { $pull: { items: dirObj } }, (err, result) => {
+              cleanDir(username, result[0], dirObj, (err) => {
                 if (err) {
                   callback({ error: 'Internal Error', code: 104 })
                 } else {
@@ -223,20 +202,36 @@ function removeDir(username, name, path, callback) {
             }
           })
         }
+      } else {
+        // 为空目录，直接删除该目录
+        cleanDir(username, result[0], dirObj, (err) => {
+          if (err) {
+            callback({ error: 'Internal Error', code: 104 })
+          } else {
+            callback(err, fileList)
+          }
+        })
       }
     })
+  })
+}
 
-    if (!fileObj) {
-      // 不存在该文件
-      callback({ error: 'File Not Exist', code: 304 })
+// 删除目录表项
+function cleanDir(username, obj, itemEle, callback) {
+  let directory = db.gDb.collection('directory')
+  delete obj.items
+  directory.deleteOne(obj, (err, result) => {
+    if (err) {
+      callback(err)
       return
     }
 
-    directory.updateOne({ username: username, directory: path }, { $pull: { items: fileObj } }, (err, result) => {
+    // 从父级目录的 items 中删除
+    directory.updateOne({ username: username, directory: itemEle.path }, { $pull: { items: itemEle } }, (err, result) => {
       if (err) {
-        callback({ error: 'Internal Error', code: 104 })
+        callback(err)
       } else {
-        callback(err, fileObj.realName)
+        callback()
       }
     })
   })
@@ -247,5 +242,7 @@ module.exports = {
   directory,
   createDir,
   upload,
-  download
+  download,
+  removeDir,
+  removeFile
 }

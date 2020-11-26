@@ -88,8 +88,10 @@ function select() {
     $('#item-name').text(selected.children()[1].lastChild.innerText);
     if (selected.children()[1].firstChild.innerText == 'folder') {
       $('#file-size').text('');
+      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="rm('${selected.children()[1].lastChild.innerText}', 'dir');"><i class="material-icons">delete</i></a></li>`);
     } else {
       $('#file-size').text(` (${selected.children()[2].innerText})`);
+      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="rm('${selected.children()[1].lastChild.innerText}', 'file');"><i class="material-icons">delete</i></a></li>`);
       $('#op-list').append(`<li><a href="javascript:void(0)" onclick="dl('${selected.children()[1].lastChild.innerText}');"><i class="material-icons">cloud_download</i></a></li>`);
     }
     $('#sub-menu').fadeIn(100);
@@ -111,6 +113,23 @@ function dl(filename) {
     data: { name: filename, path: path },
     success: (res) => {
       window.location.href = res.url;
+    },
+    error: (res) => {
+      let code = res.responseJSON.code;
+      if (code == 101) {
+        window.location.href = '/login';
+      }
+    }
+  });
+}
+
+function rm(filename, type) {
+  $.post({
+    url: '/api/disk/remove',
+    headers: { Authorization: 'Bearer ' + token },
+    data: { name: filename, type: type, path: path },
+    success: (res) => {
+      loadList();
     },
     error: (res) => {
       let code = res.responseJSON.code;
