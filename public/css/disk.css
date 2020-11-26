@@ -79,3 +79,25 @@ table {
 .collection-item {
   min-height: unset !important;
 }
+
+#sub-menu {
+  display: none;
+  background-color: #ffffff;
+}
+
+#sub-menu .nav-wrapper {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#sub-menu a {
+  color: #000000;
+}
+
+#sub-menu span {
+  color: #000000;
+}
+
+#item-info {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}

@@ -15,7 +15,7 @@ function setPath(p) {
   if (path != '/') {
     for (let i = 1; i < arr.length; i++) {
       currPath += '/' + arr[i];
-      $('#path-list').append(`<i class="material-icons path-arrow">keyboard_arrow_right</i>`);
+      $('#path-list').append(`<i class="material-icons path-arrow">navigate_next</i>`);
       $('#path-list').append(`<a class="waves-effect waves-teal btn-flat path-item" onclick="setPath('${currPath}');">${arr[i]}</a>`);
     }
   }
@@ -50,18 +50,19 @@ function loadList() {
 
       $('.item').click((e) => {
         clearSelect();
-        selected = $(e.target).parent('.item');
-        selected.addClass('active');
+        selected = $(e.target).parents('.item');
+        select();
       });
 
       $('.item').dblclick((e) => {
-        clearSelect();
-        selected = $(e.target).parent('.item');
-        selected.addClass('active');
-
-        if (selected.children()[1].firstChild.innerText == 'folder') {
-          // 进入目录
-          setPath(path + (path == '/' ? '' : '/') + selected.children()[1].lastChild.innerText);
+        console.log('double click');
+        if (selected && selected.length) {
+          if (selected.children()[1].firstChild.innerText == 'folder') {
+            // 进入目录
+            setPath(path + (path == '/' ? '' : '/') + selected.children()[1].lastChild.innerText);
+            clearSelect();
+            $('#sub-menu').fadeOut(100);
+          }
         }
       });
     },
@@ -75,15 +76,49 @@ function loadList() {
 }
 
 $('#content').click((e) => {
-  if (!$(e.target).parent('.item').length) {
+  if (!$(e.target).parents('.item').length) {
     clearSelect();
+    $('#sub-menu').fadeOut(100);
   }
 })
 
-function clearSelect() {
-  if (selected) {
-    selected.removeClass('active');
+function select() {
+  if (selected && selected.length) {
+    selected.addClass('active');
+    $('#item-name').text(selected.children()[1].lastChild.innerText);
+    if (selected.children()[1].firstChild.innerText == 'folder') {
+      $('#file-size').text('');
+    } else {
+      $('#file-size').text(` (${selected.children()[2].innerText})`);
+      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="dl('${selected.children()[1].lastChild.innerText}');"><i class="material-icons">cloud_download</i></a></li>`);
+    }
+    $('#sub-menu').fadeIn(100);
   }
+}
+
+function clearSelect() {
+  if (selected && selected.length) {
+    selected.removeClass('active');
+    selected = null;
+    $('#op-list').empty();
+  }
+}
+
+function dl(filename) {
+  $.get({
+    url: '/api/disk/download',
+    headers: { Authorization: 'Bearer ' + token },
+    data: { name: filename, path: path },
+    success: (res) => {
+      window.location.href = res.url;
+    },
+    error: (res) => {
+      let code = res.responseJSON.code;
+      if (code == 101) {
+        window.location.href = '/login';
+      }
+    }
+  });
 }
 
 function formatSize(value) {
@@ -153,7 +188,7 @@ $('#file').change((e) => {
         <i class="material-icons circle green">insert_drive_file</i>
         <span class="title">${filename}</span>
         <p class="info"><span class="status">上传中：</span><span class="percent">0%</span></p>
-        <a href="#" class="secondary-content tooltipped" data-position="bottom" data-tooltip="取消任务" onclick="cancel(${uploadList.length});">
+        <a href="javascript:void(0)" class="secondary-content tooltipped" data-position="bottom" data-tooltip="取消任务" onclick="cancel(${uploadList.length});">
           <i class="material-icons">cancel</i>
         </a>
       </li>

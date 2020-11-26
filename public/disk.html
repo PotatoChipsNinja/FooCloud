@@ -15,14 +15,24 @@
     <nav>
       <div class="nav-wrapper blue darken-3">
         <ul class="left hide-on-med-and-down">
-          <li><a href="#" onclick="sidebar();"><i class="material-icons">menu</i></a></li>
+          <li><a href="javascript:void(0)" onclick="sidebar();"><i class="material-icons">menu</i></a></li>
         </ul>
         <a href="" class="brand-logo"><i class="material-icons">cloud</i>FooCloud</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="#"><i class="material-icons">search</i></a></li>
-          <li><a href="#" onclick="nightMode();" id="switch-mode"><i class="material-icons">brightness_4</i></a></li>
+          <li><a href="javascript:void(0)"><i class="material-icons">search</i></a></li>
+          <li><a href="javascript:void(0)" onclick="nightMode();" id="switch-mode"><i class="material-icons">brightness_4</i></a></li>
           <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
         </ul>
+      </div>
+    </nav>
+
+    <nav id="sub-menu">
+      <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="javascript:void(0)" onclick="clearSelect();$('#sub-menu').fadeOut(100);"><i class="material-icons">arrow_back</i></a></li>
+        </ul>
+        <span id="item-info"><span id="item-name"></span><span id="file-size"></span></span>
+        <ul class="right hide-on-med-and-down" id="op-list"></ul>
       </div>
     </nav>
 
@@ -74,15 +84,15 @@
         <div id="path-list" class="valign-wrapper"></div>
         <div class="valign-wrapper">
           <span id="num-count"><span id="file-num"></span> 个文件，<span id="dir-num"></span> 个目录</span>
-          <a href="#" id="sort-button" class="valign-wrapper center-align dropdown-trigger" data-target='sort'>
+          <a href="javascript:void(0)" id="sort-button" class="valign-wrapper center-align dropdown-trigger" data-target='sort'>
             <i class="material-icons">text_rotate_vertical</i>
           </a>
         </div>
         <ul id='sort' class='dropdown-content'>
-          <li><a href="#" onclick="sortList(0);">按名称升序</a></li>
-          <li><a href="#" onclick="sortList(1);">按名称降序</a></li>
-          <li><a href="#" onclick="sortList(2);">按日期升序</a></li>
-          <li><a href="#" onclick="sortList(3);">按日期降序</a></li>
+          <li><a href="javascript:void(0)" onclick="sortList(0);">按名称升序</a></li>
+          <li><a href="javascript:void(0)" onclick="sortList(1);">按名称降序</a></li>
+          <li><a href="javascript:void(0)" onclick="sortList(2);">按日期升序</a></li>
+          <li><a href="javascript:void(0)" onclick="sortList(3);">按日期降序</a></li>
         </ul>
       </div>
 
@@ -120,8 +130,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="#" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
-        <a href="#" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createDir();">创建</a>
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
+        <a href="javascript:void(0)" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createDir();">创建</a>
       </div>
     </div>
 
