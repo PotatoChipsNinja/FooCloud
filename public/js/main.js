@@ -10,6 +10,11 @@ function sidebar() {
   }
 }
 
+function logout() {
+  localStorage.removeItem('token');
+  window.location = '/login';
+}
+
 function nightMode() {
   $('body').append(css);
   styleObj = $('body').children().last();
