@@ -2,6 +2,8 @@
 
 const express = require('express')
 const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
 const db = require('../../modules/db/disk')
 const auth = require('../../modules/auth')
 
@@ -149,6 +151,60 @@ router.get('/download', (req, res) => {
       }
     })
   })
+})
+
+// 删除项目
+router.post('/remove', (req, res) => {
+  let name = req.body.name
+  let type = req.body.type
+  let path = req.body.path
+
+  if (!name || !type || !path) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  if (type == 'dir') {
+    db.removeDir(req.username, name, path, (err, realNameList) => {
+      if (err) {
+        res.status(err.code == 104 ? 500 : 403).send(err)
+        return
+      }
+
+      // 异步删除服务端文件
+      console.log(realNameList)
+      /*
+      fs.unlink(path.join(__dirname, '../../uploads', realName), (err) => {
+        if (err) {
+          res.status(500).send({ error: 'Internal Error', code: 104 })
+        } else {
+          res.send({ success: true })  // 删除成功
+        }
+      })
+      */
+    })
+  } else if (type == 'file') {
+    db.removeFile(req.username, name, path, (err, realName) => {
+      if (err) {
+        res.status(err.code == 104 ? 500 : 403).send(err)
+        return
+      }
+
+      // 异步删除服务端文件
+      fs.unlink(path.join(__dirname, '../../uploads', realName), (err) => {
+        if (err) {
+          res.status(500).send({ error: 'Internal Error', code: 104 })
+        } else {
+          res.send({ success: true })  // 删除成功
+        }
+      })
+    })
+  } else {
+    // type 参数错误
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
 })
 
 router.use((req, res) => {

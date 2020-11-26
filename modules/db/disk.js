@@ -118,6 +118,130 @@ function download(username, name, path, callback) {
   })
 }
 
+// 删除文件，返回需要删除的真实文件
+function removeFile(username, name, path, callback) {
+  let directory = db.gDb.collection('directory')
+  directory.find({ username: username, directory: path }).toArray((err, result) => {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length == 0) {
+      // 不存在该目录
+      callback({ error: 'Directory Not Exist', code: 301 })
+      return
+    }
+
+    let fileObj = result[0].items.find(obj => (obj.name == name && obj.type == 'file'))
+
+    if (!fileObj) {
+      // 不存在该文件
+      callback({ error: 'File Not Exist', code: 304 })
+      return
+    }
+
+    directory.updateOne({ username: username, directory: path }, { $pull: { items: fileObj } }, (err, result) => {
+      if (err) {
+        callback({ error: 'Internal Error', code: 104 })
+      } else {
+        callback(err, fileObj.realName)
+      }
+    })
+  })
+}
+
+// 递归删除目录，返回需要删除的真实文件列表
+function removeDir(username, name, path, callback) {
+  let directory = db.gDb.collection('directory')
+  directory.find({ username: username, directory: path }).toArray((err, result) => {
+    if (err) {
+      callback({ error: 'Internal Error', code: 104 })
+      return
+    }
+
+    if (result.length == 0) {
+      // 不存在该目录
+      callback({ error: 'Directory Not Exist', code: 301 })
+      return
+    }
+
+    let dirObj = result[0].items.find(obj => (obj.name == name && obj.type == 'dir'))
+    let dirPath = path + (path == '/' ? '' : '/') + name
+    let fileList = []
+
+    // 判断是否为空目录
+    directory.find({ username: username, directory: dirPath }).toArray((err, result) => {
+      if (err || result.length == 0) {
+        callback({ error: 'Internal Error', code: 104 })
+        return
+      }
+
+      if (result[0].items.length == 0) {
+        // 为空目录，直接删除该目录
+        directory.deleteOne(result[0], (err, result) => {
+          if (err) {
+            callback({ error: 'Internal Error', code: 104 })
+            return
+          }
+
+          // 从父级目录的 items 中删除
+          directory.updateOne({ username: username, directory: path }, { $pull: { items: dirObj } }, (err, result) => {
+            if (err) {
+              callback({ error: 'Internal Error', code: 104 })
+            } else {
+              callback(err, fileList)
+            }
+          })
+        })
+      } else {
+        // 不为空目录
+        let works = result[0].items.length
+        for (let i = 0; i < works; i++) {
+          removeFunc = result[0].items[i].type == 'dir' ? removeDir : removeFile
+          removeFunc(username, result[0].items[i].name, dirPath, (err, realName) => {
+            if (err) {
+              callback(err)
+              return
+            }
+
+            if (result[0].items[i].type == 'dir') {
+              fileList = fileList.concat(realName)
+            } else {
+              fileList.push(realName)
+            }
+            works--;
+            if (works == 0) {
+              // 删除父级目录
+              directory.updateOne({ username: username, directory: path }, { $pull: { items: dirObj } }, (err, result) => {
+                if (err) {
+                  callback({ error: 'Internal Error', code: 104 })
+                } else {
+                  callback(err, fileList)
+                }
+              })
+            }
+          })
+        }
+      }
+    })
+
+    if (!fileObj) {
+      // 不存在该文件
+      callback({ error: 'File Not Exist', code: 304 })
+      return
+    }
+
+    directory.updateOne({ username: username, directory: path }, { $pull: { items: fileObj } }, (err, result) => {
+      if (err) {
+        callback({ error: 'Internal Error', code: 104 })
+      } else {
+        callback(err, fileObj.realName)
+      }
+    })
+  })
+}
+
 // 对外部暴露模块
 module.exports = {
   directory,
