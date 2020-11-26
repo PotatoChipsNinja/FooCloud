@@ -14,6 +14,9 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/register.html'))
 })
+router.get('/share', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/share.html'))
+})
 router.get('/s/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/disk.html'))
 })

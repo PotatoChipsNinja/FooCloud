@@ -1,0 +1,52 @@
+#content {
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 1rem 2rem;
+}
+
+.card {
+  margin: 1rem 1rem;
+  width: 25rem;
+  display: inline-block;
+}
+
+.op-button {
+  display: inline-block;
+  margin: 0 0.3rem !important;
+  width: 3rem;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.08s linear !important;
+}
+
+.op-button i {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+
+.op-button:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: background-color 0.08s linear !important;
+}
+
+.card-action {
+  padding: 0.2rem 0.5rem !important;
+}
+
+.item-icon {
+  background-color: gray;
+  color: white;
+  display: inline-block;
+  height: 3rem;
+  width: 3rem;
+  line-height: 3rem;
+}
+
+.share-info {
+  margin-left: 1.5rem;
+  display: inline-block;
+}
+
+.file-time {
+  color: rgba(0, 0, 0, 0.6);
+}
