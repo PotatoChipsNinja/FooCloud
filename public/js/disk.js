@@ -36,6 +36,8 @@ function loadList() {
       $('#file-num').text(res.fileNum);
       $('#dir-num').text(res.dirNum);
 
+      clearSelect();
+      $('#sub-menu').fadeOut(100);
       $('#items').empty();
       for (let i = 0; i < res.items.length; i++) {
         $('#items').append(`
