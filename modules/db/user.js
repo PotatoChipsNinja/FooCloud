@@ -52,7 +52,14 @@ function register(username, password, callback) {
           if (err) {
             callback({ error: 'Internal Error', code: 104 })
           } else {
-            callback()
+            let memo = db.gDb.collection('memo')
+            memo.insertOne({ username: username, notes: [] }, (err, result) => {
+              if (err) {
+                callback({ error: 'Internal Error', code: 104 })
+              } else {
+                callback()
+              }
+            })
           }
         })
       }
