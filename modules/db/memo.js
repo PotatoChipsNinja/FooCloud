@@ -4,26 +4,13 @@ const db = require('./base.js')
 
 function createNote(username, title, content, callback) {
   let memo = db.gDb.collection('memo')
-  memo.find({ username: username }).toArray((err, result) => {
+  let note = { username: username, title: title, content: content, time: new Date().getTime() }
+  memo.insertOne(note, (err) => {
     if (err) {
       callback({ error: 'Internal Error', code: 104 })
-      return
+    } else {
+      callback()
     }
-
-    if (result[0].notes.find(obj => (obj.title == title))) {
-      callback({ error: 'Note Already Exist', code: 402 })
-      return
-    }
-
-    let newNote = { title: title, content: content, time: new Date().getTime() }
-
-    memo.updateOne({ username: username }, { $push: { notes: newNote } }, (err) => {
-      if (err) {
-        callback({ error: 'Internal Error', code: 104 })
-      } else {
-        callback()
-      }
-    })
   })
 }
 
@@ -35,7 +22,7 @@ function getNotes(username, callback) {
       return
     }
 
-    callback(err, result[0].notes)
+    callback(err, result)
   })
 }
 
@@ -48,29 +35,22 @@ function editNote(username, title, content, new_title, new_content, callback) {
       return
     }
 
-    let note = result[0].notes.find(obj => (obj.title == title && obj.content == content))
+    let note = result.find(obj => (obj.title == title && obj.content == content))
     if (!note) {
       callback({ error: 'Note Not Exist', code: 401 })
       return
     }
 
-    if (result[0].notes.find(obj => (obj.title == new_title))) {
+    if (result.find(obj => (obj.title == new_title))) {
       callback({ error: 'Note Already Exist', code: 402 })
       return
     }
 
-    memo.updateOne({ username: username }, { $pull: { notes: note } }, (err, result) => {
+    memo.updateOne(note, { $set: { title: new_title, content: new_content, time: new Date().getTime() } }, (err) => {
       if (err) {
         callback({ error: 'Internal Error', code: 104 })
       } else {
-        let newNote = { title: new_title, content: new_content, time: new Date().getTime() }
-        memo.updateOne({ username: username }, { $push: { notes: newNote }}, (err, result) => {
-          if (err) {
-            callback({ error: 'Internal Error', code: 104 })
-          } else {
-            callback()
-          }
-        })
+        callback()
       }
     })
   })
@@ -85,13 +65,14 @@ function deleteNote(username, title, content, callback) {
       return
     }
 
-    let note = result[0].notes.find(obj => (obj.title == title && obj.content == content))
-    if (!note) {
+    let notes = result
+    let noteObj = notes.find(obj => (obj.title == title && obj.content == content))
+    if (!noteObj) {
       callback({ error: 'Note Not Exist', code: 401 })
       return
     }
 
-    memo.updateOne({ username: username }, { $pull: { notes: note } }, (err, result) => {
+    memo.deleteOne(noteObj, (err) => {
       if (err) {
         callback({ error: 'Internal Error', code: 104 })
       } else {
