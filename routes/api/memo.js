@@ -62,17 +62,16 @@ router.get('/getNotes', (req, res) => {
 
 router.post('/editNote', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.username
+  let uuid = req.body.uuid
   let title = req.body.title
-  let new_title = req.body.new_title
   let content = req.body.content
-  let new_content = req.body.new_content
 
-  if (!title || !content || !new_title || !new_content) {
+  if (!uuid || !title || !content) {
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
 
-  db.editNote(username, title, content, new_title, new_content, (err) => {
+  db.editNote(username, uuid, title, content, (err) => {
     if (err) {
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
@@ -83,15 +82,14 @@ router.post('/editNote', express.urlencoded({ extended: false }), (req, res) => 
 
 router.post('/deleteNote', express.urlencoded({ extended: false }), (req, res) => {
   let username = req.username
-  let title = req.body.title
-  let content = req.body.content
+  let uuid = req.body.uuid
 
-  if (!title || !content) {
+  if (!uuid) {
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
 
-  db.deleteNote(username, title, content, (err) => {
+  db.deleteNote(username, uuid, (err) => {
     if (err) {
       res.status(err.code == 104 ? 500 : 403).send(err)
     } else {
