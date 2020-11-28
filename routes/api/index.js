@@ -4,6 +4,7 @@ const express = require('express')
 const auth = require('../../modules/auth')
 const userRouter = require('./user')
 const diskRouter = require('./disk')
+const shareRouter = require('./share')
 const memoRouter = require('./memo')
 
 const router = express.Router()
@@ -36,6 +37,7 @@ router.use((req, res, next) => {
 
 router.use('/user', userRouter)  // 用户服务 API
 router.use('/disk', diskRouter)  // 文件服务 API
+router.use('/share', shareRouter)// 分享服务 API
 router.use('/memo', memoRouter)  // 备忘录服务 API
 
 router.use((req, res) => {
