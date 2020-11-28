@@ -53,6 +53,7 @@ router.get('/getNotes', (req, res) => {
       res.status(500).send(err)
     } else {
       notes.forEach(obj => delete(obj._id))
+      notes.forEach(obj => delete(obj.username))
       notes.sort(sortFunc)
       let noteNum = notes.length
       res.send({ noteNum: noteNum, notes: notes })
