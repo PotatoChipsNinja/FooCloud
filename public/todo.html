@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>备忘录 - FooCloud</title>
+    <title>待办事项 - FooCloud</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
     <link type="text/css" rel="stylesheet" href="/css/materialicons.css">
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
-    <link type="text/css" rel="stylesheet" href="/css/memo.css">
+    <link type="text/css" rel="stylesheet" href="/css/todo.css">
   </head>
 
   <body>
@@ -43,13 +43,13 @@
       <hr/>
       <div class="side-title">扩展应用</div>
       <a href="/memo">
-        <div class="side-item valign-wrapper active">
+        <div class="side-item valign-wrapper">
           <i class="material-icons">message</i>
           备忘录
         </div>
       </a>
       <a href="/todo">
-        <div class="side-item valign-wrapper">
+        <div class="side-item valign-wrapper active">
           <i class="material-icons">format_list_bulleted</i>
           待办事项
         </div>
@@ -64,35 +64,9 @@
 
     <div id="content"></div>
 
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large red" onclick="add();">
-        <i class="large material-icons">add</i>
-      </a>
-    </div>
-
-    <div class="modal" id="modal" style="width: 25rem;">
-      <div class="modal-content" style="padding: 0 24px;">
-        <p style="font-size: 120%; margin-bottom: 2rem;" id="modal-title"></p>
-        <div class="input-field">
-          <input id="note-title" type="text" onfocus="$(this).removeClass('invalid');">
-          <label for="note-title" id="note-title-label">标题</label>
-          <span class="helper-text" data-error="标题不能为空"></span>
-        </div>
-
-        <div class="input-field">
-          <textarea id="note-content" class="materialize-textarea"></textarea>
-          <label for="note-content" id="note-content-label">内容</label>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
-        <a href="javascript:void(0)" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" id="modal-button">确定</a>
-      </div>
-    </div>
-
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/memo.js"></script>
+    <script type="text/javascript" src="/js/todo.js"></script>
   </body>
 </html>
