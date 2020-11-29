@@ -1,6 +1,7 @@
 // routes/api/share.js: 分享操作 API 路由
 
 const express = require('express')
+const auth = require('../../modules/auth')
 const db = require('../../modules/db/share')
 
 const router = express.Router()
@@ -65,6 +66,55 @@ router.post('/cancel', express.urlencoded({ extended: false }), (req, res) => {
     } else {
       res.send({ success: true })
     }
+  })
+})
+
+// 获取分享信息
+router.get('/getInfo', (req, res) => {
+  let link = req.query.link
+  let password = req.query.password || ''
+
+  if (!link) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  let UUID = new Buffer(link.substr(3), 'base64').toString()
+  db.getInfo(UUID, password, (err, info) => {
+    if (err) {
+      res.status(err.code == 104 ? 500 : 403).send(err)
+    } else {
+      res.send(info)
+    }
+  })
+})
+
+// 下载分享文件
+router.get('/download', (req, res) => {
+  let UUID = req.query.UUID
+  let password = req.query.password || ''
+
+  if (!UUID) {
+    // 缺少必要参数
+    res.status(400).send({ error: 'Parameter Error', code: 103 })
+    return
+  }
+
+  db.download(UUID, password, (err, name, realName) => {
+    if (err) {
+      res.status(err.code == 104 ? 500 : 403).send(err)
+      return
+    }
+
+    // 签发下载 token
+    auth.signDL(name, realName, (err, token) => {
+      if (err) {
+        res.status(500).send({ error: 'Internal Error', code: 104 })
+      } else {
+        res.send({ url: `/dl/${token}` })
+      }
+    })
   })
 })
 

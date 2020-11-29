@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>文件分享 - FooCloud</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link type="text/css" rel="stylesheet" href="/css/materialicons.css">
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/css/s.css">
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-wrapper blue darken-3">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="javascript:void(0)" onclick="sidebar();"><i class="material-icons">menu</i></a></li>
+        </ul>
+        <a href="/" class="brand-logo"><i class="material-icons">cloud</i>FooCloud</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="javascript:void(0)" onclick="window.location.reload();"><i class="material-icons">refresh</i></a></li>
+          <li><a href="javascript:void(0)" onclick="nightMode();" id="switch-mode"><i class="material-icons">brightness_4</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="z-depth-2" id="side">
+      <div class="side-title">分享</div>
+      <a href="/share">
+        <div class="side-item valign-wrapper active">
+          <i class="material-icons">share</i>
+          文件分享
+        </div>
+      </a>
+
+      <div id="copyright">
+        &copy; 2020 <a href="https://github.com/PotatoChipsNinja/FooCloud" target="_blank">FooCloud</a>
+        <br/>
+        All Rights Reserved.
+      </div>
+    </div>
+
+    <div id="content"></div>
+
+    <div class="modal" id="link-modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%; margin-bottom: 2rem;">查看分享链接</p>
+        <div class="input-field">
+          <input type="text" id="share-link" readonly>
+          <label for="share-link" id="share-link-label">分享链接</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">关闭</a>
+      </div>
+    </div>
+
+    <div class="modal" id="password-modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%; margin-bottom: 2rem;">查看分享密码</p>
+        <div class="input-field">
+          <input type="text" id="share-password" readonly>
+          <label for="share-password" id="share-password-label">分享密码</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">关闭</a>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/share.js"></script>
+  </body>
+</html>

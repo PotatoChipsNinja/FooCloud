@@ -142,6 +142,7 @@ router.get('/download', (req, res) => {
       return
     }
 
+    // 签发下载 token
     auth.signDL(name, realName, (err, token) => {
       if (err) {
         res.status(500).send({ error: 'Internal Error', code: 104 })

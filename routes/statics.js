@@ -18,7 +18,7 @@ router.get('/share', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/share.html'))
 })
 router.get('/s/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/disk.html'))
+  res.sendFile(path.join(__dirname, '../public/s.html'))
 })
 router.use('/', express.static('public'))
 

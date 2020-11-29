@@ -9,10 +9,18 @@ const memoRouter = require('./memo')
 
 const router = express.Router()
 
+// 不需要鉴权的 API 列表
+const authFreeList = [
+  '/user/login',
+  '/user/register',
+  '/share/getInfo',
+  '/share/download'
+]
+
 router.use((req, res, next) => {
   console.log(`API Request: ${req.url}`)
-  if (req.url == '/user/login' || req.url == '/user/register') {
-    next()  // 登录和注册不需要鉴权
+  if (authFreeList.indexOf(req.url) >= 0) {
+    next()  // 不需要鉴权
   } else {
     let token
 
