@@ -6,7 +6,7 @@ const db = require('../../modules/db/share')
 const router = express.Router()
 
 // 创建分享
-router.post('create', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/create', express.urlencoded({ extended: false }), (req, res) => {
   let name = req.body.name
   let path = req.body.path
   let password = req.body.password || "";
@@ -30,7 +30,7 @@ router.post('create', express.urlencoded({ extended: false }), (req, res) => {
 })
 
 // 获取分享列表
-router.post('list', (req, res) => {
+router.get('/list', (req, res) => {
   db.list(req.username, (err, items) => {
     if (err) {
       res.status(500).send({ error: 'Internal Error', code: 104 })
@@ -50,7 +50,7 @@ router.post('list', (req, res) => {
 })
 
 // 取消分享
-router.post('cancel', express.urlencoded({ extended: false }), (req, res) => {
+router.post('/cancel', express.urlencoded({ extended: false }), (req, res) => {
   let UUID = req.body.UUID
 
   if (!UUID) {
