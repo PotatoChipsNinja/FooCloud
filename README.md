@@ -28,7 +28,7 @@ openssl genrsa -out private.key 1024
 openssl rsa -in private.key -pubout -out public.pem
 
 # 启动 MongoDB 服务
-mkdir db
+mkdir db logs
 mongod --dbpath=./db
 
 # 启动 FooCloud 服务
