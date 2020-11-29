@@ -7,9 +7,9 @@ const router = express.Router()
 
 router.post('/createNote', express.urlencoded({ extended: false }), (req, res) => {
   let title = req.body.title
-  let content = req.body.content
+  let content = req.body.content || ''
 
-  if (!title || !content) {
+  if (!title) {
     // 缺少必要参数
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
@@ -65,9 +65,9 @@ router.post('/editNote', express.urlencoded({ extended: false }), (req, res) => 
   let username = req.username
   let uuid = req.body.uuid
   let title = req.body.title
-  let content = req.body.content
+  let content = req.body.content || ''
 
-  if (!uuid || !title || !content) {
+  if (!uuid || !title) {
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }

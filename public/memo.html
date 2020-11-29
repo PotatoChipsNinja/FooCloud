@@ -70,6 +70,32 @@
 
     <div id="content"></div>
 
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red" onclick="add();">
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+
+    <div class="modal" id="modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%; margin-bottom: 2rem;" id="modal-title"></p>
+        <div class="input-field">
+          <input id="note-title" type="text" onfocus="$(this).removeClass('invalid');">
+          <label for="note-title" id="note-title-label">标题</label>
+          <span class="helper-text" data-error="标题不能为空"></span>
+        </div>
+
+        <div class="input-field">
+          <textarea id="note-content" class="materialize-textarea"></textarea>
+          <label for="note-content" id="note-content-label">内容</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
+        <a href="javascript:void(0)" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" id="modal-button">确定</a>
+      </div>
+    </div>
+
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
