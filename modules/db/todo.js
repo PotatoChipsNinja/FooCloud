@@ -7,7 +7,7 @@ const db = require('./base')
 function add(username, content, callback) {
   let todo = db.gDb.collection('todo')
   let newTodo = { UUID: uuid.v1(), username: username, content: content, time: new Date().getTime(), finished: false }
-  share.insertOne(newTodo, (err, result) => {
+  todo.insertOne(newTodo, (err, result) => {
     callback(err)
   })
 }
@@ -15,7 +15,7 @@ function add(username, content, callback) {
 // 获取待办事项列表
 function list(username, callback) {
   let todo = db.gDb.collection('todo')
-  share.find({ username: username }).toArray((err, result) => {
+  todo.find({ username: username }).toArray((err, result) => {
     callback(err, result)
   })
 }
@@ -23,7 +23,7 @@ function list(username, callback) {
 // 切换待办事项完成状态
 function switchStatus(username, UUID, callback) {
   let todo = db.gDb.collection('todo')
-  share.find({ username: username, UUID: UUID }).toArray((err, result) => {
+  todo.find({ username: username, UUID: UUID }).toArray((err, result) => {
     if (err) {
       callback({ error: 'Internal Error', code: 104 })
       return
@@ -49,7 +49,7 @@ function switchStatus(username, UUID, callback) {
 // 删除待办事项
 function deleteItem(username, UUID, callback) {
   let todo = db.gDb.collection('todo')
-  share.find({ username: username, UUID: UUID }).toArray((err, result) => {
+  todo.find({ username: username, UUID: UUID }).toArray((err, result) => {
     if (err) {
       callback({ error: 'Internal Error', code: 104 })
       return
