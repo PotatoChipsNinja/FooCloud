@@ -16,6 +16,7 @@ function logout() {
 }
 
 function nightMode() {
+  localStorage.setItem('nightMode', 1);
   $('body').append(css);
   styleObj = $('body').children().last();
   $('#switch-mode').attr('onclick', 'dayMode();');
@@ -23,6 +24,7 @@ function nightMode() {
 }
 
 function dayMode() {
+  localStorage.setItem('nightMode', 0);
   styleObj.remove();
   $('#switch-mode').attr('onclick', 'nightMode();');
   $('#switch-mode').children().text('brightness_4');
@@ -47,3 +49,7 @@ ts = '#content,#side,' + ts.join(',') + '{filter:invert(100%);}'
 var css = document.createElement('style');
 css.innerHTML = ts;
 var styleObj;
+
+if (localStorage.getItem('nightMode') == 1) {
+  nightMode();
+}
