@@ -36,7 +36,7 @@ function switchStatus(username, UUID, callback) {
     }
 
     // 修改表项
-    todo.updateOne({ username: username, UUID: UUID }, { finished: !result[0].finished }, (err, result) => {
+    todo.updateOne({ username: username, UUID: UUID }, { $set: { finished: !result[0].finished } }, (err, result) => {
       if (err) {
         callback({ error: 'Internal Error', code: 104 })
       } else {
