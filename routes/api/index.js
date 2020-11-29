@@ -6,6 +6,7 @@ const userRouter = require('./user')
 const diskRouter = require('./disk')
 const shareRouter = require('./share')
 const memoRouter = require('./memo')
+const todoRouter = require('./todo')
 
 const router = express.Router()
 
@@ -47,6 +48,7 @@ router.use('/user', userRouter)  // 用户服务 API
 router.use('/disk', diskRouter)  // 文件服务 API
 router.use('/share', shareRouter)// 分享服务 API
 router.use('/memo', memoRouter)  // 备忘录服务 API
+router.use('/todo', todoRouter)  // 待办事项服务 API
 
 router.use((req, res) => {
   res.status(404).send({ error: 'Wrong API URL', code: 102 })  // URL 匹配失败
