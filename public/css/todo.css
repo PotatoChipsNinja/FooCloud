@@ -1,3 +1,77 @@
 #content {
   background-color: rgba(0, 0, 0, 0.03);
 }
+
+.sub-title {
+  font-weight: bold;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 2rem;
+}
+
+.my-badge {
+  float: right;
+  height: 2rem;
+  width: 2rem;
+  background-color: rgba(50, 50, 200, 0.25);
+  line-height: 2rem;
+  font-size: 1.2rem;
+}
+
+.item {
+  background-color: white;
+  height: 3rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+}
+
+.side-border {
+  width: 1rem;
+  display: inline-block;
+  border-left: 5px solid #629A9C;
+  border-radius: 5px;
+  height: 3rem;
+}
+
+#container {
+  width: 50%;
+  display: inline-block;
+  padding-top: 2rem;
+}
+
+.checkbox {
+  position: relative;
+  bottom: 0.4rem;
+}
+
+.checkbox-span {
+  padding: 0;
+}
+
+.todo-content {
+  line-height: 3rem;
+  position: relative;
+  bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+
+.op-button {
+  float: right;
+  margin: 0.5rem 0.5rem 0 0;
+  width: 2rem;
+  height: 2rem;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.08s linear !important;
+}
+
+.op-button i {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.op-button:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: background-color 0.08s linear !important;
+}

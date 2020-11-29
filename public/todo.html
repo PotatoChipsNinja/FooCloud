@@ -62,7 +62,47 @@
       </div>
     </div>
 
-    <div id="content"></div>
+    <div id="content" class="center-align">
+      <div id="container">
+        <div class="input-field" style="width: calc(100% - 45px); display: inline-block;">
+          <input id="new-todo" type="text" onfocus="$(this).removeClass('invalid');">
+          <label for="new-todo" id="new-todo-label">添加新待办事项</label>
+          <span class="helper-text" id="username-helper" data-error="内容不能为空"></span>
+        </div>
+        <a class="btn-floating waves-effect waves-light green darken-1" style="display: inline-block;" onclick="add();"><i class="material-icons">add</i></a>
+
+        <p class="left-align sub-title" style="margin-top: 0;">正在进行<span class="circle center-align my-badge" id="undo-num">1</span></p>
+        <div id="undo-list">
+          <div class="item z-depth-2 left-align">
+            <div class="side-border"></div>
+            <label class="checkbox">
+              <input type="checkbox" class="filled-in" checked="checked" onclick="switchItem(1);" />
+              <span class="checkbox-span"></span>
+            </label>
+            <span class="todo-content">操作系统作业</span>
+            <a href="javascript:void(0)" class="center-align circle op-button tooltipped" data-position="bottom" data-tooltip="删除此项" onclick="deleteItem(1);">
+              <i class="material-icons">remove_circle</i>
+            </a>
+          </div>
+
+          <div class="item z-depth-2 left-align">
+            <div class="side-border"></div>
+            <label class="checkbox">
+              <input type="checkbox" class="filled-in" checked="checked" />
+              <span class="checkbox-span"></span>
+            </label>
+            <span class="todo-content">操作系统作业</span>
+            <a href="javascript:void(0)" class="center-align circle op-button tooltipped" data-position="bottom" data-tooltip="删除此项">
+              <i class="material-icons">remove_circle</i>
+            </a>
+          </div>
+        </div>
+        <p class="left-align sub-title">已经完成<span class="circle center-align my-badge" id="finished-num">0</span></p>
+        <div id="finished-list">
+          
+        </div>
+      </div>
+    </div>
 
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
