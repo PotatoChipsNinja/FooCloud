@@ -4,6 +4,8 @@ $(document).ready(() => {
   M.Tooltip.init($('.tooltipped'), {});
   M.Modal.init($('#create-dir-modal'), { endingTop: '30%' });
   M.Modal.init($('#upload-modal'), { endingTop: '20%' });
+  M.Modal.init($('#create-share-modal'), { endingTop: '30%' });
+  M.Modal.init($('#share-success-modal'), { endingTop: '30%' });
 });
 
 function setPath(p) {
@@ -93,8 +95,9 @@ function select() {
       $('#op-list').append(`<li><a href="javascript:void(0)" onclick="rm('${selected.children()[1].lastChild.innerText}', 'dir');"><i class="material-icons">delete</i></a></li>`);
     } else {
       $('#file-size').text(` (${selected.children()[2].innerText})`);
-      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="rm('${selected.children()[1].lastChild.innerText}', 'file');"><i class="material-icons">delete</i></a></li>`);
+      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="share('${selected.children()[1].lastChild.innerText}');"><i class="material-icons">share</i></a></li>`);
       $('#op-list').append(`<li><a href="javascript:void(0)" onclick="dl('${selected.children()[1].lastChild.innerText}');"><i class="material-icons">cloud_download</i></a></li>`);
+      $('#op-list').append(`<li><a href="javascript:void(0)" onclick="rm('${selected.children()[1].lastChild.innerText}', 'file');"><i class="material-icons">delete</i></a></li>`);
     }
     $('#sub-menu').fadeIn(100);
   }
@@ -106,6 +109,60 @@ function clearSelect() {
     selected = null;
     $('#op-list').empty();
   }
+}
+
+function share(filename) {
+  shareFile = filename;
+  openShare = true;
+  $('#share-file-name-label').addClass('active');
+  $('#share-file-name').val(filename);
+  $("input[name='share-type']").eq(0).prop('checked', true);
+  $('#share-password-field').hide();
+  $('#share-password').val('');
+  $('#share-password-label').removeClass('active');
+  M.Modal.getInstance($('#create-share-modal')).open();
+}
+
+$("input[name='share-type']").click(() => {
+  if ($("input[name='share-type']:checked").val() == 'secret') {
+    $('#share-password-field').show();
+    openShare = false
+  } else {
+    $('#share-password-field').hide();
+    $('#share-password').val('');
+    $('#share-password-label').removeClass('active');
+    openShare = true;
+  }
+});
+
+function createShare() {
+  let password = $('#share-password').val()
+  if (!openShare && !password) {
+    $('#share-password').addClass('invalid');
+    return;
+  }
+
+  let postData = { name: shareFile, path: path };
+  if (!openShare) {
+    postData.password = password;
+  }
+  $.post({
+    url: '/api/share/create',
+    headers: { Authorization: 'Bearer ' + token },
+    data: postData,
+    success: (res) => {
+      M.Modal.getInstance($('#create-share-modal')).close();
+      $('#share-link-label').addClass('active');
+      $('#share-link').val(`${window.location.protocol}//${window.location.host}${res.shareURL}`);
+      M.Modal.getInstance($('#share-success-modal')).open();
+    },
+    error: (res) => {
+      let code = res.responseJSON.code;
+      if (code == 101) {
+        window.location.href = '/login';
+      }
+    }
+  });
 }
 
 function dl(filename) {
@@ -281,6 +338,8 @@ var path = '/';
 var sort = 0;
 var selected;
 var uploadList = [];
+var shareFile;
+var openShare = true;
 if (!token) {
   window.location.href = '/login';
 }

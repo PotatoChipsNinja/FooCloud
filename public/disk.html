@@ -144,6 +144,48 @@
       </div>
     </div>
 
+    <div class="modal" id="create-share-modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%; margin-bottom: 2rem;">创建分享</p>
+        <div class="input-field">
+          <input disabled type="text" class="validate" id="share-file-name">
+          <label for="share-file-name" id="share-file-name-label">分享文件</label>
+        </div>
+
+        <label style="margin-right: 1rem;">
+          <input class="with-gap" name="share-type" value="open" type="radio" checked />
+          <span>公开分享</span>
+        </label>
+        <label>
+          <input class="with-gap" name="share-type" value="secret" type="radio" />
+          <span>私密分享</span>
+        </label>
+
+        <div class="input-field" id="share-password-field">
+          <input id="share-password" type="text" onfocus="$(this).removeClass('invalid');">
+          <label for="share-password" id="share-password-label">分享密码</label>
+          <span class="helper-text" data-error="密码不能为空"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
+        <a href="javascript:void(0)" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createShare();">创建</a>
+      </div>
+    </div>
+
+    <div class="modal" id="share-success-modal" style="width: 25rem;">
+      <div class="modal-content" style="padding: 0 24px;">
+        <p style="font-size: 120%; margin-bottom: 2rem;">创建分享</p>
+        <div class="input-field">
+          <input type="text" id="share-link" readonly>
+          <label for="share-link" id="share-link-label">分享链接</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">关闭</a>
+      </div>
+    </div>
+
     <input type="file" style="display: none;" id="file">
 
     <script type="text/javascript" src="/js/materialize.min.js"></script>

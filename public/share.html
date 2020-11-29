@@ -68,50 +68,31 @@
       </div>
     </div>
 
-    <div id="content">
-      <div class="card">
-        <div class="card-content valign-wrapper">
-          <i class="material-icons circle center-align item-icon">insert_drive_file</i>
-          <div class="share-info">
-            <span class="card-title grey-text text-darken-4 file-name">a.txt</span>
-            <p class="file-time">2020-06-23</p>
-          </div>
-        </div>
-        <div class="card-action right-align">
-          <a href="javascript:void(0)" class="center-align circle op-button tooltipped" data-position="bottom" data-tooltip="查看链接">
-            <i class="material-icons">link</i>
-          </a>
-          <a href="javascript:void(0)" class="center-align circle op-button tooltipped" data-position="bottom" data-tooltip="查看密码">
-            <i class="material-icons">visibility</i>
-          </a>
-          <a href="javascript:void(0)" class="center-align circle op-button tooltipped" data-position="bottom" data-tooltip="取消分享">
-            <i class="material-icons">delete</i>
-          </a>
-        </div>
-      </div>
-    </div>
+    <div id="content"></div>
 
-    <div class="modal" id="create-dir-modal" style="width: 25rem;">
+    <div class="modal" id="link-modal" style="width: 25rem;">
       <div class="modal-content" style="padding: 0 24px;">
-        <p style="font-size: 120%;">创建目录</p>
+        <p style="font-size: 120%; margin-bottom: 2rem;">查看分享链接</p>
         <div class="input-field">
-          <input id="dir-name" type="text" onfocus="clearErr(this);">
-          <label for="dir-name" id="dir-name-label">目录名</label>
-          <span class="helper-text" id="dir-name-helper" data-error=""></span>
+          <input type="text" id="share-link" readonly>
+          <label for="share-link" id="share-link-label">分享链接</label>
         </div>
       </div>
       <div class="modal-footer">
-        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">取消</a>
-        <a href="javascript:void(0)" class="waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;" onclick="createDir();">创建</a>
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">关闭</a>
       </div>
     </div>
 
-    <div class="modal" id="upload-modal" style="max-height: 60%;">
+    <div class="modal" id="password-modal" style="width: 25rem;">
       <div class="modal-content" style="padding: 0 24px;">
-        <!--<h4>传输管理</h4>-->
-        <p style="font-size: 120%;">传输管理</p>
-        <ul class="collection">
-        </ul>
+        <p style="font-size: 120%; margin-bottom: 2rem;">查看分享密码</p>
+        <div class="input-field">
+          <input type="text" id="share-password" readonly>
+          <label for="share-password" id="share-password-label">分享密码</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat" style="color: #ef6c00; margin: 0;">关闭</a>
       </div>
     </div>
 
