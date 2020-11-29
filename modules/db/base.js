@@ -1,6 +1,7 @@
 // modules/db/base.js: MongoDB 数据库操作接口
 
 const MongoClient = require('mongodb').MongoClient
+const logger = require('../logger')
 
 const url = 'mongodb://localhost:27017'
 const dbName = 'FooCloud'
@@ -18,6 +19,8 @@ function connect(callback) {
       // 数据库连接失败
       callback(err)
     } else {
+      // 数据库连接成功
+      logger('Successfully connected to database.')
       gClient = client
       gDb = client.db(dbName)
       module.exports.gClient = client
@@ -31,6 +34,7 @@ function connect(callback) {
 function close() {
   if (gClient && gClient.isConnected()) {
     gClient.close()
+    logger('Database has been closed.')
   }
 }
 

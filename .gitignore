@@ -1,5 +1,6 @@
 /node_modules/
 /db/
+/logs/
 /uploads/
 private.key
 public.pem

@@ -1,6 +1,7 @@
 // routes/api/index.js: API 主路由
 
 const express = require('express')
+const logger = require('../../modules/logger')
 const auth = require('../../modules/auth')
 const userRouter = require('./user')
 const diskRouter = require('./disk')
@@ -19,7 +20,7 @@ const authFreeList = [
 ]
 
 router.use((req, res, next) => {
-  console.log(`API Request: ${req.url}`)
+  logger(`API Request: ${req.url}`)
   if (authFreeList.indexOf(req.path) >= 0) {
     next()  // 不需要鉴权
   } else {

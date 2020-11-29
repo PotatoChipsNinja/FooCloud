@@ -3,6 +3,7 @@
 const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const logger = require('./logger')
 
 let privateKey, cert
 
@@ -11,8 +12,9 @@ try {
   cert = fs.readFileSync('public.pem')        // 读取公钥
 } catch {
   // 读取密钥对失败
-  console.log('Failed to load key pair!')
-  process.exit(1)
+  logger('Failed to load key pair!', true, () => {
+    process.exit(1)
+  })
 }
 
 function sign(username, callback) {
