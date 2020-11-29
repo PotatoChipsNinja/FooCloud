@@ -4,6 +4,7 @@ const express = require('express')
 const multer = require('multer')
 const db = require('../../modules/db/disk')
 const auth = require('../../modules/auth')
+const logger = require('../../modules/logger')
 const removeFile = require('../../modules/removeFile')
 
 const router = express.Router()
@@ -115,6 +116,8 @@ router.post('/upload', upload.single('file'), (req, res) => {
     res.status(400).send({ error: 'Parameter Error', code: 103 })
     return
   }
+
+  logger(`Upload file: ${file.filename}`)
 
   db.upload(req.username, name, path, file.filename, file.size, (err) => {
     if (err) {

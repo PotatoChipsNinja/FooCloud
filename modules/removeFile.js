@@ -2,9 +2,10 @@
 
 const fs = require('fs')
 const path = require('path')
+const logger = require('./logger')
 
 function removeFile(fileList, callback) {
-  console.log('Remove Files:', fileList)
+  logger(`Remove files: ${fileList.toString()}`)
 
   if (fileList.length == 0) {
     // 特判列表为空
