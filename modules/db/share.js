@@ -93,7 +93,7 @@ function getInfo(UUID, password, callback) {
       // 密码错误
       callback({ error: 'Wrong Share Password', code: 306 })
     } else {
-      callback(err, { UUID: shareObj.UUID, name: shareObj.name, size: shareObj.size, time: shareObj.time })
+      callback(err, { UUID: shareObj.UUID, username: shareObj.username, name: shareObj.name, size: shareObj.size, time: shareObj.time })
     }
   })
 }

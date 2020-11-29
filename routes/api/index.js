@@ -19,7 +19,7 @@ const authFreeList = [
 
 router.use((req, res, next) => {
   console.log(`API Request: ${req.url}`)
-  if (authFreeList.indexOf(req.url) >= 0) {
+  if (authFreeList.indexOf(req.path) >= 0) {
     next()  // 不需要鉴权
   } else {
     let token

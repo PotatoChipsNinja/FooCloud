@@ -27,7 +27,7 @@
 
     <div class="z-depth-2" id="side">
       <div class="side-title">分享</div>
-      <a href="/share">
+      <a href="">
         <div class="side-item valign-wrapper active">
           <i class="material-icons">share</i>
           文件分享
@@ -41,7 +41,39 @@
       </div>
     </div>
 
-    <div id="content"></div>
+    <div id="content" class="valign-wrapper">
+      <div class="center-align" style="width: 100%">
+        <div class="card">
+          <div class="card-content" id="auth" hidden>
+            <span class="card-title">当前分享为加密分享</span>
+            <hr/>
+            <div class="input-field" style="width: 50%; display: inline-block; margin-right: 2rem;">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="password" type="password" onfocus="$(this).removeClass('invalid');">
+              <label for="password">分享密码</label>
+              <span class="helper-text" data-error="密码错误"></span>
+            </div>
+            <a class="waves-effect waves-light blue darken-3 btn" onclick="getInfo();">确定</a>
+          </div>
+
+          <div class="card-content" id="info" hidden>
+            <span class="card-title"><span id="username"></span> 向您分享了一个文件</span>
+            <hr/>
+            <p><i class="material-icons circle center-align item-icon green">insert_drive_file</i></p>
+            <span class="card-title grey-text text-darken-4 file-name" id="file-name"></span>
+            <p class="file-info"><span id="file-time"></span> · <span id="file-size"></span></p>
+            <hr/>
+            <a class="waves-effect waves-light blue darken-3 btn" onclick="dl();">下载</a>
+          </div>
+
+          <div class="card-content" id="no-share" hidden>
+            <i class="material-icons" style="font-size: 2rem; color: rgba(0, 0, 0, 0.6);">error</i>
+            <hr/>
+            <span class="card-title">分享不存在</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal" id="link-modal" style="width: 25rem;">
       <div class="modal-content" style="padding: 0 24px;">
@@ -72,6 +104,6 @@
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/share.js"></script>
+    <script type="text/javascript" src="/js/s.js"></script>
   </body>
 </html>

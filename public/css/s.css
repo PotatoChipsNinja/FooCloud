@@ -1,0 +1,27 @@
+#content {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+hr {
+  height: 1px;
+  border: none;
+  margin: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  width: 50%;
+  display: inline-block;
+}
+
+.item-icon {
+  color: white;
+  display: inline-block;
+  height: 3rem;
+  width: 3rem;
+  line-height: 3rem;
+}
+
+.file-info {
+  color: rgba(0, 0, 0, 0.6);
+}
