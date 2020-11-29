@@ -1,7 +1,7 @@
 // modules/db/memo.js 备忘录数据库操作
 
-const db = require('./base.js')
 const uuid = require('uuid')
+const db = require('./base.js')
 
 function createNote(username, title, content, callback) {
   let memo = db.gDb.collection('memo')

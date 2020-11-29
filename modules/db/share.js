@@ -1,6 +1,6 @@
 // modules/db/share.js: 数据库分享操作
 
-const uuid = require('./uuid')
+const uuid = require('uuid')
 const db = require('./base')
 
 // 创建分享
