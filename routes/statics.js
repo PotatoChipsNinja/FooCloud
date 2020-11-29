@@ -20,6 +20,9 @@ router.get('/share', (req, res) => {
 router.get('/s/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/s.html'))
 })
+router.get('/memo', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/memo.html'))
+})
 router.use('/', express.static('public'))
 
 module.exports = router
