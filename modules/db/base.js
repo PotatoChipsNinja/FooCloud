@@ -14,7 +14,7 @@ function connect(callback) {
     callback()
     return
   }
-  MongoClient.connect(url, { useUnifiedTopology: true }, function(err, client) {
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) {
       // 数据库连接失败
       callback(err)
