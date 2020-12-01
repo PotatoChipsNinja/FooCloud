@@ -55,8 +55,11 @@ function logger(content, fatal, callback) {
     hasFatal = true
   }
 
+  // 日志文件
   let logFile = path.join(__dirname, '../logs', `${dateFormat(new Date(), 'yyyyMMdd')}.log`)
+  // 格式化日志内容
   let logStr = `[${dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss')}] [${fatal ? 'FATAL' : 'INFO'}] ${content}`
+
   console.log(logStr)
   fs.writeFile(logFile, logStr + '\n', { flag: 'a' }, (err) => {
     if (err) {
