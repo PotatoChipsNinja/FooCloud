@@ -63,11 +63,12 @@ function logger(content, fatal, callback) {
   console.log(logStr)
   fs.writeFile(logFile, logStr + '\n', { flag: 'a' }, (err) => {
     if (err) {
+      // 日志文件写入错误
       console.log(`[${dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss')}] [FATAL] Failed to write log file!`)
       process.exit(1)
     }
     if (callback) {
-      callback()
+      callback()  // 调用回调函数
     }
   })
 }
