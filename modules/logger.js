@@ -3,9 +3,6 @@
 const fs = require('fs')
 const path = require('path')
 
-const fileName = `${dateFormat(new Date(), 'yyyyMMddHHmmss')}.log`  // 日志文件名
-const logFile = path.join(__dirname, '../logs', fileName)           // 日志文件路径
-
 var hasFatal = false
 
 // 输出 Banner
@@ -18,6 +15,15 @@ console.log('\
 /_/    \\____/\\____/\\____/_/\\____/\\__,_/\\__,_/\
 ')
 console.log('\033[0m')
+
+// 创建 logs 目录
+fs.mkdir('logs', (err) => {
+  if (err && err.code != 'EEXIST') {
+    // 创建 logs 目录失败
+    console.log(`[${dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss')}] [FATAL] Failed to make logs directory!`)
+    process.exit(1)
+  }
+})
 
 // 格式化日期
 function dateFormat(date, fmt) {
@@ -49,6 +55,7 @@ function logger(content, fatal, callback) {
     hasFatal = true
   }
 
+  let logFile = path.join(__dirname, '../logs', `${dateFormat(new Date(), 'yyyyMMdd')}.log`)
   let logStr = `[${dateFormat(new Date(), 'yyyy-MM-dd HH:mm:ss')}] [${fatal ? 'FATAL' : 'INFO'}] ${content}`
   console.log(logStr)
   fs.writeFile(logFile, logStr + '\n', { flag: 'a' }, (err) => {
