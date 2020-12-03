@@ -1,15 +1,18 @@
 # FooCloud：高扩展性的私有云文件系统
 > 名称由 Fool Cloud（傻瓜云）简并而来，可译为“浮云”
 
-## 功能与特性
-- 用户管理：注册、登录、登出等
-- 文件服务：文件上传、下载、分享等
-- 并发性能：后端数据库异步操作 (callback)、前端数据异步加载 (AJAX)
-- 扩展应用：备忘录、课程表、待办事项等
+## 功能
+- [用户服务](https://github.com/PotatoChipsNinja/FooCloud/wiki/User-Service)：注册、登录、登出等
+- [文件服务](https://github.com/PotatoChipsNinja/FooCloud/wiki/Disk-Service)：文件上传、下载、删除等
+- [分享服务](https://github.com/PotatoChipsNinja/FooCloud/wiki/Share-Service)：创建公开分享、私密分享、取消分享等
+- 扩展应用：[备忘录](https://github.com/PotatoChipsNinja/FooCloud/wiki/Extend-Memo)、[待办事项](https://github.com/PotatoChipsNinja/FooCloud/wiki/Extend-TODO)等
+
+## 特性
+- [并发性](https://github.com/PotatoChipsNinja/FooCloud/wiki/Concurrency)：服务端通过异步回调 (callback) 的事件驱动 I/O 操作、前端异步加载数据 (AJAX)
+- [健壮性](https://github.com/PotatoChipsNinja/FooCloud/wiki/Robustness)：多级错误回调，完整的 API 错误机制，包含日志模块
+- [扩展性](https://github.com/PotatoChipsNinja/FooCloud/wiki/Scalability)：模块化开发，易新增扩展应用
 
 ## 环境与部署
-> TODO: 通过 Docker 镜像进行容器化部署
-
 部署 FooCloud 需要以下环境：
 - Node.js 14.15.1
 - MongoDB 4.4.2
@@ -35,5 +38,5 @@ mongod --dbpath=./db
 npm start
 ```
 
-## REST API
-请见 [wiki - API 文档](https://github.com/PotatoChipsNinja/FooCloud/wiki/API-Docs)
+## 文档
+请见 [项目 wiki](https://github.com/PotatoChipsNinja/FooCloud/wiki/Home)
