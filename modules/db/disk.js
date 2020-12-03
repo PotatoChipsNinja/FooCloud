@@ -161,7 +161,7 @@ function removeDir(username, name, path, callback) {
     }
 
     if (result.length == 0) {
-      // 不存在该目录
+      // 不存在父目录
       callback({ error: 'Directory Not Exist', code: 301 })
       return
     }
@@ -169,6 +169,12 @@ function removeDir(username, name, path, callback) {
     let dirObj = result[0].items.find(obj => (obj.name == name && obj.type == 'dir'))
     let dirPath = path + (path == '/' ? '' : '/') + name
     let fileList = []
+
+    if (!dirObj) {
+      // 不存在子目录
+      callback({ error: 'Directory Not Exist', code: 301 })
+      return
+    }
 
     // 判断是否为空目录
     directory.find({ username: username, directory: dirPath }).toArray((err, result) => {
