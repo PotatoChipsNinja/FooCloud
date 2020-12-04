@@ -3,7 +3,7 @@
 
 FooCloud 采用前后端分离的设计模式，服务端采用 Node.js 进行开发，通过提供 REST API 服务与前端进行数据交互。
 
-![FooCloud](assets/index.png)
+![FooCloud](https://github.com/PotatoChipsNinja/FooCloud/wiki/assets/index.png)
 
 ## 功能
 - [用户服务](https://github.com/PotatoChipsNinja/FooCloud/wiki/User-Service)：注册、登录、登出等
